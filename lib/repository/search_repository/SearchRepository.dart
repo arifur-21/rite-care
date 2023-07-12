@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:ritecare_hms/model/search_model/SearchModel.dart';
 
 import '../../data/network/network_api_services.dart';
@@ -41,13 +43,14 @@ class SearchRepository {
     print(endDate);
     print("test sample  sugges ");
     dynamic response = await _apiServices.getApiData(
-        '/Item/GetInvoiceSampleIDByMedicalType?id=0&statusid=$statusId&medicalTypeID=62&DateStart=$startDate&DateEnd=$endDate&pageNumber=$page&pageSize=25&invoiceId=$invoiceNum&sampleId=$labTestName');
+        '/Item/GetInvoiceSampleIDByMedicalType?id=$serviceId&statusid=$statusId&medicalTypeID=62&DateStart=$startDate&DateEnd=$endDate&pageNumber=$page&pageSize=25&invoiceId=$invoiceNum&sampleId=$labTestName');
     return SummeryModel.fromJson(response);
   }
 
   //get summery list data
   Future<SummeryModel> getSummeryListData(
       startDate, endDate, statusId, page, serviceId, itemId, invoiceNum) async {
+    print('repository..................>>>>> $serviceId');
     dynamic response = await _apiServices.getApiData(
         '/Item/GetPatientInvoicebyMedicalType?id=$serviceId&statusId=$statusId&medicalTypeID=62&DateStart=${startDate}&DateEnd=${endDate}&pageNumber=$page&pageSize=20&invoiceId=$invoiceNum&sampleId=&itemId=$itemId');
     return SummeryModel.fromJson(response);
@@ -60,6 +63,16 @@ class SearchRepository {
     print("repo service Id ${serviceId}");
     dynamic response = await _apiServices.getApiData(
         '/Item/GetTableRowDesignByItemId?itemId=$itemId&machineId=&groupItemId=$groupItemId&serviceId=$serviceId');
+    return TableRowDesignModel.fromJson(response);
+  }
+
+
+  //get table  key pair data
+  Future<TableRowDesignModel> getTableKeyPairItem(
+      serviceId, groupServiceIds) async {
+    dynamic response = await _apiServices.getApiData(
+      '/Item/GetKeyPairResultByServiceId?serviceId=$serviceId&groupServiceId=$groupServiceIds'
+    );
     return TableRowDesignModel.fromJson(response);
   }
 

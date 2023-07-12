@@ -30,8 +30,9 @@ class _LabReportResultPrintScreenState
   @override
   void initState() {
     print("======================<><><><><>=====================");
-    tableRowDesignVm.getTableRowDesignItem(widget.patientService.id,
-        widget.patientService.itemId, widget.groupItemId = 0);
+    tableRowDesignVm.getTableKeyPairItem(widget.patientService.id,
+        widget.patientService.patientServiceIds ?? ''
+    );
     super.initState();
   }
 
@@ -71,7 +72,7 @@ class _LabReportResultPrintScreenState
                     return Text("item not found");
                   } else {
                     return Container(
-                      height: Get.height * 0.75,
+                     height: Get.height * 0.75,
                       child: ListView.separated(
                         shrinkWrap: true,
                         itemCount: tableRowDesignVm

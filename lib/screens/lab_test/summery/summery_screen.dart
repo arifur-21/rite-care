@@ -66,6 +66,7 @@ class _PatientSummeryScreenState extends State<PatientSummeryScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       drawer: Drawer(
         child: DrawerWidget(),
@@ -290,7 +291,7 @@ class _PatientSummeryScreenState extends State<PatientSummeryScreen> {
                                                     width: 10,
                                                   ),
                                                   Text(
-                                                    "${summeryVM.items[index].patient?.firstName}",
+                                                    "${summeryVM.items[index].patient?.firstName} ${summeryVM.items[index].patient?.lastName}",
                                                     style:
                                                         TextStyle(fontSize: 12),
                                                   ),

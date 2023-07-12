@@ -17,7 +17,7 @@ import '../../../utils/color_styles.dart';
 import '../../../widgets/app_bar_widget.dart';
 import '../../../widgets/patinet_info_card_widget.dart';
 import '../../../widgets/rounded_button.dart';
-import '../../demo_screen.dart';
+
 import '../../patient_registration/full_form_register_screen.dart';
 import '../../patient_registration/short_form_register.dart';
 import '../../search_screen/search_patient_Screen.dart';
@@ -49,10 +49,13 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
   dynamic data;
   bool isVislible = false;
   int? patientId;
+  String? serviceType;
 
+ // late Box box1;
 
   @override
   Widget build(BuildContext context) {
+   // print("box data ${box1.get('serviceId')}");
     return SafeArea(
       child: Scaffold(
           drawer: Drawer(
@@ -167,6 +170,7 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
 
                           },
                           editOnTap: (){
+                            print(data[index].rank.toString());
 
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>  RegistrationUpdateScreen(
                               officalNo: data[index].officalNo.toString(),
@@ -199,10 +203,10 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
                         SizedBox(height: 20,),
 
                         ProfileUserDataViewWidget(title: "ID",information: "${data[index].id.toString()}"),
-                        ProfileUserDataViewWidget(title: "Name",information: "${data[index].name.toString()}"),
-                        ProfileUserDataViewWidget(title: "Gender",information: "${data[index].gender.toString()}"),
+                        ProfileUserDataViewWidget(title: "Name",information: "${data[index].name.toString()} ${data[index].lastName.toString()}"),
+                        ProfileUserDataViewWidget(title: "Gender",information: "${data[index].gender.toString()} "),
                         ProfileUserDataViewWidget(title: "Blood Group",information: "${data[index].bloodGroup}"),
-                        ProfileUserDataViewWidget(title: "Address",information: "${data[index].city}"),
+                        ProfileUserDataViewWidget(title: "Address",information: "${data[index].street} ${data[index].city}"),
                         ProfileUserDataViewWidget(title: "Mobile",information: "${data[index].mobile}"),
                         ProfileUserDataViewWidget(title: "Email",information: "${data[index].email}"),
                         ProfileUserDataViewWidget(title: "Date of Birth",information: "${(dob == null) ? " " : DateFormat('dd-MM-yyyy').format(DateTimeConverter.dateOfTiemConterter(dob))}"),
@@ -220,6 +224,7 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
 
 
 
+                       // (data[index].serviceType == 0) ? serviceType = "Uniform" : serviceType "RE";
                       ],
                     ),
                   );

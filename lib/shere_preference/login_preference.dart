@@ -79,7 +79,14 @@ class LoginPreference {
   Future<void> removeLoginToken() async{
     SharedPreferences sp = await SharedPreferences.getInstance();
    await sp.remove('send_email');
-   await sp.clear();
+  // await sp.clear();
+
+  }
+
+  Future<void> removeServiceId() async{
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    await sp.remove('service_id');
+   // await sp.clear();
 
   }
 }

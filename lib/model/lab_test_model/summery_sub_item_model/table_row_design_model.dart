@@ -25,6 +25,7 @@ class TableRowDesignModel {
 }
 
 class Design {
+  int? patientServiceId;
   dynamic? itemId;
   dynamic? headerName;
   dynamic? headerNote;
@@ -62,6 +63,7 @@ class Design {
 
   Design(
       {this.itemId,
+        this.patientServiceId,
       this.headerName,
       this.headerNote,
       this.name,
@@ -97,6 +99,7 @@ class Design {
       this.noErrors});
 
   Design.fromJson(Map<String, dynamic> json) {
+    patientServiceId = json['PatientServiceId'];
     itemId = json['ItemId'];
     headerName = json['HeaderName'];
     headerNote = json['HeaderNote'];
@@ -136,6 +139,7 @@ class Design {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['ItemId'] = this.itemId;
+    data['PatientServiceId'] = this.patientServiceId;
     data['HeaderName'] = this.headerName;
     data['HeaderNote'] = this.headerNote;
     data['Name'] = this.name;

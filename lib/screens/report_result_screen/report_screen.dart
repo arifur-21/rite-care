@@ -19,6 +19,7 @@ import '../../model/lab_test_model/summery_sub_item_model/report_body_data_model
 import '../../utils/color_styles.dart';
 
 import '../../view_model/summery_view_model/summery_details_view_model.dart';
+import '../../view_model/summery_view_model/summery_view_model.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen(
@@ -34,6 +35,7 @@ class ReportScreen extends StatefulWidget {
 
 class _ReportScreenState extends State<ReportScreen> {
   final tableRowDesignVm = Get.put(SummeryDetailsViewModel());
+  final summeryVM = Get.put(SummeryViewModel());
 
   late List<TextEditingController> listController;
 
@@ -358,6 +360,7 @@ class _ReportScreenState extends State<ReportScreen> {
 
                 await tableRowDesignVm.saveEditLabReportResult(
                     result: bodyModel);
+                summeryVM.getSummeryListData(isRefreshed: true);
                 Navigator.pop(context);
               },
               child: const Icon(

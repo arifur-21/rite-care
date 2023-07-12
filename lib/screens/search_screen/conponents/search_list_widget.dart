@@ -28,7 +28,7 @@ class SearchlistWidget extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 70,
+            //  height: 70,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
                 border: Border.all(color: Colors.green,width: 2)

@@ -39,6 +39,7 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
   dynamic statusId;
   dynamic status;
   bool postponedVisibilisy = true;
+  String? changeStatus;
 
   @override
   void initState() {
@@ -111,6 +112,8 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
                                     .items?[index]?.item?.name,
                                 name: otListVM.otScheduleList.value
                                     .items?[index]?.patient?.firstName,
+                                lastName: otListVM.otScheduleList.value
+                                    .items?[index]?.patient?.lastName,
                                 status: otListVM.otScheduleList.value
                                     .items?[index]?.surgeryStatus?.name,
                                 surgeryType: otListVM.otScheduleList.value
@@ -141,6 +144,7 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
       {dynamic statusId,
         dynamic? title,
         dynamic? name,
+        dynamic? lastName,
         dynamic? status,
         dynamic? surgeryType,
         required int indexNum,
@@ -175,7 +179,7 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
                     SizedBox(
                       width: 10,
                     ),
-                    Expanded(child: Text("${name}")),
+                    Expanded(child: Text("${name + lastName}")),
                     SizedBox(
                       width: 10,
                     ),
@@ -224,7 +228,10 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("${surgeryType}"),
+                    Expanded(child: Text("${surgeryType}")),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       children: [
 
@@ -320,7 +327,9 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
                       ],
                     ),
 
-
+                    SizedBox(
+                      height: 10,
+                    ),
                     InkWell(
                         onTap: () {
                           Navigator.push(
@@ -405,7 +414,7 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
                         },
 //
 
-                        child: Image.asset('assets/icons/calendar.png')),
+                        child: Image.asset('assets/icons/calendar.png', width: 25, height: 25,)),
                   ],
                 ),
               )),
@@ -451,13 +460,14 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
                             setState(() {
                               otListVM.endDate =
                                   formattedDate; //set foratted date to TextField value.
+                              otListVM.getSchedule();
                               print("${otListVM.endDate}");
                             });
                           } else {
                             print("Date is not selected");
                           }
                         },
-                        child: Image.asset('assets/icons/calendar.png')),
+                        child: Image.asset('assets/icons/calendar.png', width: 25, height: 25,)),
                   ],
                 ),
               )),
@@ -513,7 +523,7 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
           return StatefulBuilder(
             builder: (context, setState) => AlertDialog(
               title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
                       onTap: () {
@@ -536,14 +546,22 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded
-                          (child: Text("Are you confirmed for the status change")),
+                          (child: Text("Are you confirmed to Change OT?")),
                       ],
                     ),
                     SizedBox(
                       height: 10,
                     ),
+                    (status == "Started")?
                     Text(
-                      " ${status}",
+                      "End",
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800),
+                    ):
+                    Text(
+                      "Start",
                       style: TextStyle(
                           color: Colors.red,
                           fontSize: 20,
@@ -628,7 +646,7 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
           return StatefulBuilder(
             builder: (context, setState) => AlertDialog(
               title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
                       onTap: () {
@@ -646,7 +664,7 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Are you confirmed for the status change"),
+                    Text("Are you confirmed to Postponed the OT?"),
                     SizedBox(
                       height: 10,
                     ),

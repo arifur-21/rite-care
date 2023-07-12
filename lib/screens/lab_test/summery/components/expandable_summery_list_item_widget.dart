@@ -93,8 +93,9 @@ class _ExpandableSummeryListItemState extends State<ExpandableSummeryListItem> {
     return Column(
       children: [
         Container(
-          height: 150,
+          //height: 150,
           child: ListView.builder(
+            shrinkWrap: true,
             itemCount: widget.patientServiceList?.length,
             itemBuilder: (context, index) {
               statusId = widget.patientServiceList![index].labStatusId;
@@ -126,7 +127,16 @@ class _ExpandableSummeryListItemState extends State<ExpandableSummeryListItem> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(2),
-                    border: Border.all(width: 2, color: Styles.primaryColor),
+                    border: Border.all(width: 2, color:
+                    (statusId == 1)
+                        ? Colors.red
+                        : (statusId == 2)
+                        ? Colors.green
+                        : (statusId == 3)
+                        ? Colors.orange
+                        : (statusId == 4)
+                        ? Colors.blue
+                        : Colors.indigo)
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

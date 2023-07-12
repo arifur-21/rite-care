@@ -24,7 +24,7 @@ class LabTestListViewModel extends GetxController {
   RxList<Items> items = <Items>[].obs;
   RxInt pageNumber = 1.obs;
   RxInt categoryId = 0.obs;
-  RxString statusName = ''.obs;
+  RxString statusName = 'All'.obs;
 
   /// get lab test list data
   Future<void> getLabTestListData(

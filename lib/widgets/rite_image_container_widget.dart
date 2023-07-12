@@ -17,8 +17,8 @@ class RiteImageContainerWidet extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          height: 100,
-          width: 170,
+          height: 80,
+          width: 150,
           decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
@@ -29,7 +29,7 @@ class RiteImageContainerWidet extends StatelessWidget {
         InkWell(
         onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.only(right: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

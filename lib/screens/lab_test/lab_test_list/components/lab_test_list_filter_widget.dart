@@ -74,13 +74,14 @@ class _LabTestListFilterWidgetState extends State<LabTestListFilterWidget> {
                   },
                   child: Container(
                     height: 42,
-                    width: Get.width * 0.35,
+                    width: Get.width * 0.4,
                     padding: const EdgeInsets.all(6.0),
                     decoration: BoxDecoration(
                         border: Border.all(),
                         borderRadius: BorderRadius.circular(6)
                     ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           height: 26,
@@ -92,9 +93,9 @@ class _LabTestListFilterWidgetState extends State<LabTestListFilterWidget> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        SizedBox(width: 10,),
                         Text("Filter", style: Styles.poppinsFont14_600),
-                        SizedBox(width: 20,),
+                        SizedBox(width: 10,),
                         Visibility(
                             visible: isCancel,
                             child: InkWell(
@@ -103,6 +104,7 @@ class _LabTestListFilterWidgetState extends State<LabTestListFilterWidget> {
                                     isCancel = false;
                                     labTestListVM.statusName.value = "All";
                                     labTestListVM.getLabTestListData(labStatus: 0);
+                                    labTestSuggName = '';
                                   });
 
                                 },
@@ -130,7 +132,7 @@ class _LabTestListFilterWidgetState extends State<LabTestListFilterWidget> {
             // therefor I am passing this setState to `_showDatePicker`
             builder: (context, setState) => AlertDialog(
               title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   InkWell(
                       onTap: _cancel,
@@ -164,18 +166,23 @@ class _LabTestListFilterWidgetState extends State<LabTestListFilterWidget> {
                           children: [
                             ListBody(
                               children: [
-                                InkWell(
-                                  onTap: (){
-                                    setState((){
-                                      isClick = false;
-                                      labTestListVM.categoryId.value = 0;
-                                      labTestListVM.statusName.value = 'All';
-                                      labTestListVM.getLabTestListData();
-                                    });
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: (){
+                                        setState((){
+                                          isClick = false;
+                                          labTestListVM.categoryId.value = 0;
+                                          labTestListVM.statusName.value = 'All';
+                                          labTestListVM.getLabTestListData();
+                                        });
 
 
-                                  },
-                                    child: Text("All")),
+                                      },
+                                        child: Text("All")),
+                                  ],
+                                ),
                                 Column(
                                   children: [
                                     Container(
@@ -229,12 +236,17 @@ class _LabTestListFilterWidgetState extends State<LabTestListFilterWidget> {
                                                               labTestListVM.getLabTestListData(labStatus: itemId);
 
                                                             },
-                                                            child: Text(
-                                                                "${labTestListVM.labTestListFilterStatus[index].name}",
-                                                                style: TextStyle(
-                                                                    color: (labTestListVM.categoryId.value == labTestListVM.labTestListFilterStatus[index].id! && itemId != 0)
-                                                                        ? Colors.red
-                                                                        : Colors.black))),
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                Text(
+                                                                    "${labTestListVM.labTestListFilterStatus[index].name}",
+                                                                    style: TextStyle(
+                                                                        color: (labTestListVM.categoryId.value == labTestListVM.labTestListFilterStatus[index].id! && itemId != 0)
+                                                                            ? Colors.red
+                                                                            : Colors.black)),
+                                                              ],
+                                                            )),
                                                         ///color: (statusId == sampleVM.sampleListFilterStatus[index].id && statusId != 0) ? Colors.red : Colors.black
                                                       ),
                                                     );
@@ -261,6 +273,8 @@ class _LabTestListFilterWidgetState extends State<LabTestListFilterWidget> {
                         future: labTestListFilterSuggNameVM.getLabTestNameSuggData(),
                         builder: (contxt, data) {
                           return Autocomplete<LabTestNameSuggModel>(
+                            initialValue:
+                            TextEditingValue(text: labTestSuggName ?? ""),
                             optionsBuilder: (TextEditingValue textValue) {
                               labTestListFilterSuggNameVM.getLabTestNameSuggData(query: textValue.text);
                               print("query text ${textValue.text}");
@@ -333,6 +347,7 @@ class _LabTestListFilterWidgetState extends State<LabTestListFilterWidget> {
                               setState((){
                                 labTestListVM.getLabTestListData(labTestSuggNameId: selectedValue.id);
                                 labTestSuggNameId = selectedValue.id;
+                                labTestSuggName = selectedValue.name;
                               });
 
                             },

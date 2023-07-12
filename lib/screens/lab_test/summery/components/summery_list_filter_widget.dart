@@ -10,6 +10,7 @@ import 'package:ritecare_hms/model/lab_test_model/summery_sub_item_model/lab_tes
 import 'package:ritecare_hms/utils/color_styles.dart';
 
 import '../../../../data/response/status.dart';
+import '../../../../model/service_id_model/service_id_model.dart';
 import '../../../../shere_preference/login_preference.dart';
 import '../../../../view_model/summery_view_model/lab_test_name_sugge_query_view_model/lab_test_name_query_sugg_view_model.dart';
 import '../../../../view_model/summery_view_model/summery_view_model.dart';
@@ -90,6 +91,7 @@ class _SummeryListFilterWidgetState extends State<SummeryListFilterWidget> {
                         border: Border.all(),
                         borderRadius: BorderRadius.circular(6)),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           height: 26,
@@ -122,6 +124,9 @@ class _SummeryListFilterWidgetState extends State<SummeryListFilterWidget> {
                                     summeryVm.statusName.value = "All";
                                     isCancel = false;
                                     labTestSuggName ='';
+                                    loginPreference.removeServiceId();
+
+
                                     summeryVm.invoNumController.value.clear();
                                   });
                                 },
@@ -151,7 +156,7 @@ class _SummeryListFilterWidgetState extends State<SummeryListFilterWidget> {
             builder: (context, setState) => SingleChildScrollView(
               child: AlertDialog(
                 title: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     InkWell(
                         onTap: _cancel,
@@ -191,7 +196,7 @@ class _SummeryListFilterWidgetState extends State<SummeryListFilterWidget> {
                                   Column(
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           InkWell(
                                               onTap: (){
@@ -228,13 +233,18 @@ class _SummeryListFilterWidgetState extends State<SummeryListFilterWidget> {
                                                           });
 
                                                         },
-                                                        child: Text(
-                                                            "${summeryFilterVM.summeryListFilterStatus[index].name}",
-                                                            style: TextStyle(
-                                                                color: (summeryVm.categoryId.value == summeryFilterVM.summeryListFilterStatus[index].id && statusId !=0 )
-                                                                    ? Colors.red
-                                                                    : Colors
-                                                                    .black))),
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Text(
+                                                                "${summeryFilterVM.summeryListFilterStatus[index].name}",
+                                                                style: TextStyle(
+                                                                    color: (summeryVm.categoryId.value == summeryFilterVM.summeryListFilterStatus[index].id && statusId !=0 )
+                                                                        ? Colors.red
+                                                                        : Colors
+                                                                        .black)),
+                                                          ],
+                                                        )),
                                                   ),
                                                 ),
                                               );

@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ritecare_hms/screens/home_screen.dart';
 import 'package:ritecare_hms/utils/color_styles.dart';
 
 
@@ -53,7 +54,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
 
               InkWell(
                 onTap: (){
-                  Get.to(PageOne());
+                  Get.to(HomeScreen());
                 },
                 child: Container(
                   width: double.infinity,

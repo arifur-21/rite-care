@@ -45,13 +45,10 @@ class _SignInScreenState extends State<SignInScreen> {
   void initState() {
     setState(() {
 
-
       createBox();
-   //   appUrl.sendEmail();
       isClick = !isClick;
     //  splashServices.isLogin();
       loginPreference.getSendEmail().then((value){
-        print("email11 ${value.sendEamil}");
        url = value.sendEamil;
 
       });

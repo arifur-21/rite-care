@@ -292,7 +292,7 @@ class _SampleListState extends State<SampleList> {
                                                         width: 10,
                                                       ),
                                                       Text(
-                                                        "${sampleListVM.items[index].patient?.firstName}",
+                                                        "${sampleListVM.items[index].patient?.firstName} ${sampleListVM.items[index].patient?.lastName}",
                                                         style:
                                                         TextStyle(fontSize: 12),
                                                       ),

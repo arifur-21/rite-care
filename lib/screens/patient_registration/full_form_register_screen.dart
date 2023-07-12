@@ -19,6 +19,8 @@ import '../../view_model/patient_register_view_model/patient_register_view_model
 import '../../widgets/app_bar_widget.dart';
 import '../../widgets/drawer_widget.dart';
 import '../../widgets/reuseable_header_container_widget.dart';
+import '../home_screen.dart';
+import '../navigation/pageOne.dart';
 import 'components/register_dropdown_list_data.dart';
 import 'components/register_text_field_validate.dart';
 import 'full_form_register_screen.dart';
@@ -119,7 +121,8 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
                 leadingText: 'Patient Registration',
                 tralingIcon: "assets/icons/cancel.png",
                 onTap: () {
-                  Get.back();
+                  Get.to(HomeScreen());
+                 // Navigator.pop(context);
                 },
               ),
               SizedBox(
@@ -850,7 +853,6 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
                                   selectGender = e.toString();
                                   isGender = false;
                                   setState(() {
-                                    //'Male', 'Female', 'Third Gender'
                                     if (e == "Male") {
                                       genderId = 1;
                                     } else if (e == "Female") {

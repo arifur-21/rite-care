@@ -19,6 +19,8 @@ import '../../view_model/patient_register_view_model/short_form_register_view_mo
 import '../../widgets/app_bar_widget.dart';
 import '../../widgets/drawer_widget.dart';
 import '../../widgets/reuseable_header_container_widget.dart';
+import '../home_screen.dart';
+import '../navigation/pageOne.dart';
 import 'components/register_text_field_validate.dart';
 import 'full_form_register_screen.dart';
 
@@ -125,7 +127,8 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                     leadingText: 'Patient Registration',
                     tralingIcon: "assets/icons/cancel.png",
                     onTap: () {
-                      Get.back();
+                    //  Navigator.pop(context);
+                     Get.to(HomeScreen());
                     },
                   ),
                   SizedBox(
@@ -404,8 +407,7 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                                               BorderRadius.circular(6),
                                         ),
                                       ),
-                                      controller: textEditingController
-                                        ..text = registerVM.rank ?? "",
+                                      controller: textEditingController..text = registerVM.rank ?? "",
                                       focusNode: focusNode,
                                       onSubmitted: (String value) {},
                                     );
@@ -620,25 +622,28 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                       color: Styles.primaryColor,
                       onTap: () {
                         print("status id reg $patientStatusId");
-                        shortFormVM.registerPatient(
-                            serviceId: selectServiceType,
-                            genderId: genderId,
-                            bloodId: bloodGroupId,
-                            imageUrl: imageFile,
-                            dateOfBrith: dateOfBirth,
-                            isRetired: isChecked,
-                            prefixId: patientPrefixId,
-                            relationId: patinetRelationId,
-                            statusId: patientStatusId,
-                            genderName: genderName,
-                            bloodGroupName: bloodGroupName,
-                            patientPrefixName: patientPrefixName,
-                            patientRelationName: patientRelationName,
-                            patientStatusName: patientRelationName,
-                            rankId: rankId,
-                            rankName: rankName,
-                            unitId: unitId,
-                            unitName: unitName);
+
+                        if (_formKey.currentState!.validate()) {
+                          shortFormVM.registerPatient(
+                              serviceId: selectServiceType,
+                              genderId: genderId,
+                              bloodId: bloodGroupId,
+                              imageUrl: imageFile,
+                              dateOfBrith: dateOfBirth,
+                              isRetired: isChecked,
+                              prefixId: patientPrefixId,
+                              relationId: patinetRelationId,
+                              statusId: patientStatusId,
+                              genderName: genderName,
+                              bloodGroupName: bloodGroupName,
+                              patientPrefixName: patientPrefixName,
+                              patientRelationName: patientRelationName,
+                              patientStatusName: patientRelationName,
+                              rankId: rankId,
+                              rankName: rankName,
+                              unitId: unitId,
+                              unitName: unitName);
+                        }
                         //    clearTextField();
                       }),
 
@@ -721,7 +726,7 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                                       bloodGroupId = 2;
                                     } else if (e == "B(+VE)") {
                                       bloodGroupId = 3;
-                                    } else if (e == "B(-VE)") {
+                              } else if (e == "B(-VE)") {
                                       bloodGroupId = 4;
                                     } else if (e == "O(+VE)") {
                                       bloodGroupId = 5;

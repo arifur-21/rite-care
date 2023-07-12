@@ -1306,11 +1306,7 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Date of Birth  ${ DateFormat(
-      'dd-MM-yyyy ')
-          .format(DateTimeConverter
-          .dateOfTiemConterter(
-          widget.dob))}', style: TextStyle(fontSize: 16)),
+          Text('Date of Birth  ${ DateFormat('dd-MM-yyyy').format(DateTimeConverter.dateOfTiemConterter(widget.dob.toString()))}', style: TextStyle(fontSize: 16)),
           InkWell(
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(

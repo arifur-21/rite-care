@@ -25,9 +25,9 @@ class _SliderScreenState extends State<SliderScreen> {
 
 
   List<String> images = [
-  "assets/images/first_slider.png",
-  "assets/images/second_slider.png",
-  "assets/images/third_slider.png",
+  "assets/images/slide3.png",
+  "assets/images/slide2.png",
+  "assets/images/slide1.png",
   ];
 
   @override

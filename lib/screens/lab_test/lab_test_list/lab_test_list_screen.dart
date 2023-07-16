@@ -59,85 +59,90 @@ class _LatTestListScreenState extends State<LatTestListScreen> {
           const AppBarWidget(),
         ],
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          LabTestListFilterWidget(
-            textField1HintText: 'Labtest Name',
-            onClick: () {},
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          ResuableHeader(
-            leadingText: 'Test Name',
-            titleText: 'Code',
-            tralingText: 'Category',
-          ),
-          Expanded(
-            child: Obx(() {
-              switch (labTestListVm.rxRequestStatus.value) {
-                case Status.LOADING:
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await labTestListVm.getLabTestListData(isRefreshed: true);
+        },
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            LabTestListFilterWidget(
+              textField1HintText: 'Labtest Name',
+              onClick: () {},
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ResuableHeader(
+              leadingText: 'Test Name',
+              titleText: 'Code',
+              tralingText: 'Category',
+            ),
+            Expanded(
+              child: Obx(() {
+                switch (labTestListVm.rxRequestStatus.value) {
+                  case Status.LOADING:
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
 
-                case Status.ERROR:
-                  print("error ${labTestListVm.error.value.toString()}");
-                  return Text(labTestListVm.error.value.toString());
+                  case Status.ERROR:
+                    print("error ${labTestListVm.error.value.toString()}");
+                    return Text(labTestListVm.error.value.toString());
 
-                case Status.SUCCESS:
-                  if (labTestListVm.labTestListData.value.items?.length ==
-                      null) {
-                    return const Text("item not found");
-                  } else {
-                    return ListView.builder(
-                        controller: scrollerController,
-                        itemCount: labTestListVm.items.length + 1,
-                        itemBuilder: (context, index) {
-                          if (index < labTestListVm.items.length) {
+                  case Status.SUCCESS:
+                    if (labTestListVm.labTestListData.value.items?.length ==
+                        null) {
+                      return const Text("item not found");
+                    } else {
+                      return ListView.builder(
+                          controller: scrollerController,
+                          itemCount: labTestListVm.items.length + 1,
+                          itemBuilder: (context, index) {
+                            if (index < labTestListVm.items.length) {
 
-                            return Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 8),
-                              child: LabList1CardList(
-                                  onTap: () {
-                                    print("lab test ${labTestListVm.items[index].name}");
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                LabTestListDetailsScreen(
-                                                  code: labTestListVm.items[index].code,
-                                                  testName: labTestListVm.items[index].name,
-                                                  category: labTestListVm.items[index].itemCategory?.items,
-                                                  reportSerialNO: labTestListVm.items[index].labItemSerialNo,
-                                                  labReportGroup: labTestListVm.items[index].labReportGroup?.name,
-                                                  chargePrice: labTestListVm.items[index].salePrice,
-                                                  refferCommission: labTestListVm.items[index].itemCategory?.referralCommission,
-                                                )));
-                                  },
-                                  title: "${labTestListVm.items[index].name}",
-                                  code: labTestListVm.items[index].code,
-                                  category: labTestListVm
-                                      .items[index].itemCategory!.name,
-                                  price: labTestListVm.items[index].salePrice),
-                            );
-                          }
-                          if (index == labTestListVm.items.length) {
-                            return labTestListVm.hasReachedMax.value
-                                ? const SizedBox()
-                                : const Center(
-                                child: CircularProgressIndicator());
-                          }
-                          return const SizedBox();
-                        });
-                  }
-              }
-            }),
-          )
-        ],
+                              return Padding(
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 8),
+                                child: LabList1CardList(
+                                    onTap: () {
+                                      print("lab test ${labTestListVm.items[index].name}");
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  LabTestListDetailsScreen(
+                                                    code: labTestListVm.items[index].code,
+                                                    testName: labTestListVm.items[index].name,
+                                                    category: labTestListVm.items[index].itemCategory?.items,
+                                                    reportSerialNO: labTestListVm.items[index].labItemSerialNo,
+                                                    labReportGroup: labTestListVm.items[index].labReportGroup?.name,
+                                                    chargePrice: labTestListVm.items[index].salePrice,
+                                                    refferCommission: labTestListVm.items[index].itemCategory?.referralCommission,
+                                                  )));
+                                    },
+                                    title: "${labTestListVm.items[index].name}",
+                                    code: labTestListVm.items[index].code,
+                                    category: labTestListVm
+                                        .items[index].itemCategory!.name,
+                                    price: labTestListVm.items[index].salePrice),
+                              );
+                            }
+                            if (index == labTestListVm.items.length) {
+                              return labTestListVm.hasReachedMax.value
+                                  ? const SizedBox()
+                                  : const Center(
+                                  child: CircularProgressIndicator());
+                            }
+                            return const SizedBox();
+                          });
+                    }
+                }
+              }),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -14,10 +14,12 @@ import '../../../function/function_class.dart';
 import '../../../local_db/boxes/boxes.dart';
 import '../../../shere_preference/login_preference.dart';
 import '../../../utils/color_styles.dart';
+import '../../../view_model/sampleListViewModel/sample_list_view_model.dart';
+import '../../../view_model/summery_view_model/summery_view_model.dart';
 import '../../../widgets/app_bar_widget.dart';
 import '../../../widgets/patinet_info_card_widget.dart';
 import '../../../widgets/rounded_button.dart';
-import '../../demo_screen.dart';
+
 import '../../patient_registration/full_form_register_screen.dart';
 import '../../patient_registration/short_form_register.dart';
 import '../../search_screen/search_patient_Screen.dart';
@@ -43,16 +45,21 @@ class PatientInfoScreen extends StatefulWidget {
 
 class _PatientInfoScreenState extends State<PatientInfoScreen> {
   LoginPreference loginPreference = LoginPreference();
+  final sampleVM = Get.put(SampleListVeiewModel());
+  final summeryVm = Get.put(SummeryViewModel());
 
   dynamic? dateTime;
   dynamic dob;
   dynamic data;
   bool isVislible = false;
   int? patientId;
+  String? serviceType;
 
+ // late Box box1;
 
   @override
   Widget build(BuildContext context) {
+   // print("box data ${box1.get('serviceId')}");
     return SafeArea(
       child: Scaffold(
           drawer: Drawer(
@@ -162,11 +169,24 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
                           patientOfficalNo: data[index].officalNo,
                           index: index,
                           onTap: (){
+                            sampleVM.startDate =  DateFormat("yyyy-MM-dd").format(DateTime.now());
+                            sampleVM.endDate =  DateFormat("yyyy-MM-dd").format(DateTime.now());
+                           // sampleVM.getSampleListData();
+                            sampleVM.statusName.value = "All";
+                            loginPreference.removeServiceId();
+
+                            summeryVm.startDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
+                            summeryVm.endDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
+                          //  summeryVm.getSummeryListData();
+                            summeryVm.statusName.value = "All";
+
+
                             deleteHive(data[index]);
 
 
                           },
                           editOnTap: (){
+                            print(data[index].rank.toString());
 
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>  RegistrationUpdateScreen(
                               officalNo: data[index].officalNo.toString(),
@@ -181,15 +201,26 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
                               bloodGroup: data[index].bloodGroup.toString(),
                               phone: data[index].mobile.toString(),
                               email: data[index].email.toString(),
-                              dob: data[index].dob.toString(),
+                              dob: (data[index].dob == null || data[index].dob == '')? "" :  DateFormat('dd-MM-yyyy').format(DateTimeConverter.dateOfTiemConterter(data[index].dob)) ,
                               emergencyContact: data[index].emergencyContact,
                               emergencyName:  data[index].emergencyName.toString(),
                               emergencyRelation: data[index].emergencyRelation.toString(),
                               city:  data[index].city.toString(),
-                              street:  data[index].address.toString(),
+                              street:  data[index].street,
                               lastName:  data[index].lastName,
                               nationalId:  data[index].nationalId.toString(),
                               servicerId: data[index].id.toString(),
+                              isRetired: data[index].isRetired,
+                              unitId: data[index].unitId,
+                              rankId: data[index].rankId,
+                              prefixId: data[index].prefixId,
+                              statusId: data[index].statusId,
+                              relationId: data[index].relationId,
+                              genderId: data[index].genderId,
+                              bloodGroupId: data[index].bloodGroupId,
+                              bloodGgroupName: data[index].bloodGroup,
+
+
                              
                             )));
 
@@ -199,19 +230,20 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
                         SizedBox(height: 20,),
 
                         ProfileUserDataViewWidget(title: "ID",information: "${data[index].id.toString()}"),
-                        ProfileUserDataViewWidget(title: "Name",information: "${data[index].name.toString()}"),
-                        ProfileUserDataViewWidget(title: "Gender",information: "${data[index].gender.toString()}"),
+                        ProfileUserDataViewWidget(title: "Name",information: "${data[index].name.toString()} ${data[index].lastName.toString()}"),
+                        ProfileUserDataViewWidget(title: "Gender",information: "${data[index].gender.toString()} "),
                         ProfileUserDataViewWidget(title: "Blood Group",information: "${data[index].bloodGroup}"),
-                        ProfileUserDataViewWidget(title: "Address",information: "${data[index].city}"),
+                        ProfileUserDataViewWidget(title: "Address",information: "${data[index].street} ${data[index].city}"),
                         ProfileUserDataViewWidget(title: "Mobile",information: "${data[index].mobile}"),
+                        ProfileUserDataViewWidget(title: "Is Retired",information: "${data[index].isRetired}"),
                         ProfileUserDataViewWidget(title: "Email",information: "${data[index].email}"),
                         ProfileUserDataViewWidget(title: "Date of Birth",information: "${(dob == null) ? " " : DateFormat('dd-MM-yyyy').format(DateTimeConverter.dateOfTiemConterter(dob))}"),
                         ProfileUserDataViewWidget(title: "National Id",information: "${data[index].nationalId}"),
                         ProfileUserDataViewWidget(title: "Emergency Contact",information: "${data[index].emergencyContact}"),
                         ProfileUserDataViewWidget(title: "Emergency Relation",information: "${data[index].emergencyRelation}"),
-                        ProfileUserDataViewWidget(title: "Emergency Relation",information: "${data[index].emergencyName}"),
+                        ProfileUserDataViewWidget(title: "Emergency Name",information: "${data[index].emergencyName}"),
                         ProfileUserDataViewWidget(title: "Relaionship",information: "${data[index].relationship}"),
-                        ProfileUserDataViewWidget(title: "Service Type",information: "${data[index].serviceType}"),
+                        ProfileUserDataViewWidget(title: "Service Type",information: "${(data[index].serviceType == 0) ?"Uniform" : (data[index].serviceType == 0) ? "RE" : "CNE"}"),
                         ProfileUserDataViewWidget(title: "Rank",information: "${data[index].rank}"),
                      //   ProfileUserDataViewWidget(title: "Branch/Trade",information: "${data[index].branch}"),
                         ProfileUserDataViewWidget(title: "Unit",information: "${data[index].unit}"),
@@ -220,6 +252,7 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
 
 
 
+                       // (data[index].serviceType == 0) ? serviceType = "Uniform" : serviceType "RE";
                       ],
                     ),
                   );

@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ritecare_hms/screens/home_screen.dart';
 import 'package:ritecare_hms/utils/color_styles.dart';
 
 
@@ -53,7 +54,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
 
               InkWell(
                 onTap: (){
-                  Get.to(PageOne());
+                  Get.to(HomeScreen());
                 },
                 child: Container(
                   width: double.infinity,
@@ -115,7 +116,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                        // Get.toNamed(RoutesName.patientInfoScreen);
                       },
                       image: 'assets/icons/file.png'),
-
+                  Divider(height: 2,color: Colors.grey,),
+                  SizedBox(height: 5,),
                   _drawerSublistWidget(
                       subTitle: "Patient List",
                       onTap: (){
@@ -199,7 +201,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       },
                       image: 'assets/icons/labtestlist.png'),
                   SizedBox(height: 5,),
-                  Divider(height: 2,color: Colors.grey,),
+                 // Divider(height: 2,color: Colors.grey,),
                   SizedBox(height: 5,),
 
                 /*  _drawerSublistWidget(

@@ -45,18 +45,16 @@ class _PatientInfoCardWidgetState extends State<PatientInfoCardWidget> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("ID", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                              SizedBox(width: 8,),
-                              Text(":",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                              Text("ID :", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+
                             ],
                           ),
                           SizedBox(height: 20,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Name",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                              SizedBox(width: 10,),
-                              Text(":",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                              Text("Name :",style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+
                             ],
                           )
 
@@ -90,18 +88,15 @@ class _PatientInfoCardWidgetState extends State<PatientInfoCardWidget> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("CELL NO", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                              SizedBox(width: 8,),
-                              Text(":",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                              Text("CELL NO :", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+
                             ],
                           ),
                           SizedBox(height: 20,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Offical NO",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                              SizedBox(width: 8,),
-                              Text(":",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                              Text("Offical No :",style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                             ],
                           )
 

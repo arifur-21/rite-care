@@ -51,62 +51,64 @@ class _LabTestListDetailsScreenState extends State<LabTestListDetailsScreen> {
           PopUpButtonWidget()
         ],
       ),
-      body: Column(
-        children: [
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
 
-          SizedBox(height: 10,),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Container(
-              height: 60,
-              decoration: BoxDecoration(
-                  color: Styles.primaryColor,
-                  borderRadius: BorderRadius.circular(2)
+            SizedBox(height: 10,),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Container(
+                height: 60,
+                decoration: BoxDecoration(
+                    color: Styles.primaryColor,
+                    borderRadius: BorderRadius.circular(2)
+                ),
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("LABTEST ITEM DETAILS",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+                      InkWell(
+                        onTap: (){
+                          Navigator.pop(context);
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LatTestListScreen()));
+                        },
+                          child: Icon(Icons.cancel_presentation, size: 40,color: Colors.white,)),
+                    ],
+                  ),
+                ),
               ),
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+
+
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: Styles.primaryColor)
+                ),
+                child: Column(
                   children: [
-                    Text("LABTEST ITEM DETAILS",style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
-                    InkWell(
-                      onTap: (){
-                        Navigator.pop(context);
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>LatTestListScreen()));
-                      },
-                        child: Icon(Icons.cancel_presentation, size: 40,color: Colors.white,)),
+
+                    labTestItemDetails(categoroy:"Test Name", data: "${widget.testName}"),
+                    labTestItemDetails(categoroy:"Category", data: "${widget.category}"),
+                    labTestItemDetails(categoroy:"Code", data: "${widget.code}"),
+                    labTestItemDetails(categoroy:"Report Serial No", data: "${widget.reportSerialNO}"),
+                    labTestItemDetails(categoroy:"Lab Report Group", data: "${widget.labReportGroup}"),
+                    labTestItemDetails(categoroy:"Referrer commission(tk)", data: "${widget.refferCommission}"),
+                    labTestItemDetails(categoroy:"Charge price", data: "${widget.chargePrice}"),
+
+
                   ],
                 ),
               ),
             ),
-          ),
 
-
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(width: 2, color: Styles.primaryColor)
-              ),
-              child: Column(
-                children: [
-
-                  labTestItemDetails(categoroy:"Test Name", data: "${widget.testName}"),
-                  labTestItemDetails(categoroy:"Category", data: "${widget.category}"),
-                  labTestItemDetails(categoroy:"Code", data: "${widget.code}"),
-                  labTestItemDetails(categoroy:"Report Serial No", data: "${widget.reportSerialNO}"),
-                  labTestItemDetails(categoroy:"Lab Report Group", data: "${widget.labReportGroup}"),
-                  labTestItemDetails(categoroy:"Referrer commission(tk)", data: "${widget.refferCommission}"),
-                  labTestItemDetails(categoroy:"Charge price", data: "${widget.chargePrice}"),
-
-
-                ],
-              ),
-            ),
-          ),
-
-        ],
+          ],
+        ),
       ),
     );
   }

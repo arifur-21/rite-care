@@ -27,8 +27,9 @@ class _ExpandableItemSubListState extends State<ExpandableItemSubList> {
   @override
   Widget build(BuildContext context) {
     return   Container(
-      height: 220,
+
       child:  ListView.builder(
+        shrinkWrap: true,
           itemCount: widget.patientServiceList?.length ,
           itemBuilder: (context, index){
             statusId =   widget.patientServiceList![index].labStatusId;
@@ -53,7 +54,15 @@ class _ExpandableItemSubListState extends State<ExpandableItemSubList> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(2),
-                  border: Border.all(width: 2, color: Styles.primaryColor),
+                  border: Border.all(width: 2, color: (statusId == 1)
+                      ? Colors.red
+                      : (statusId == 2)
+                      ? Colors.green
+                      : (statusId == 3)
+                      ? Colors.orange
+                      : (statusId == 4)
+                      ? Colors.blue
+                      : Colors.indigo)
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -81,8 +90,7 @@ class _ExpandableItemSubListState extends State<ExpandableItemSubList> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-
-                         // Text("100893", style: Styles.poppinsFontBlack12_600),
+                          Text("${widget.patientServiceList![index].sampleId} ${"-0${index+1}"}"),
 
                           Container(
                               height: 25,
@@ -112,6 +120,7 @@ class _ExpandableItemSubListState extends State<ExpandableItemSubList> {
                                   child: Text("$status", style: Styles.poppinsFont12_600))
 
                           ),
+
                           /*Row(
                             children: [
                               InkWell(

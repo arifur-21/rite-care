@@ -53,6 +53,7 @@ class Repository{
 
 
   Future<dynamic> registerPatient(dynamic data)async{
+    print("test register");
     dynamic response = await _apiServices.postApiData(data, '/Patient/CreatePatient');
     return response;
   }
@@ -124,11 +125,6 @@ class Repository{
     return response;
   }
 
-/*  ///  update Edit Lab Report Result
-  Future<dynamic> updateEditLabReportResult(data)async{
-    dynamic response = await _apiServices.postApiData(data, '/Item/GetKeyPairResultByServiceId?serviceId=933712&groupServiceId=');
-    return response;
-  }*/
 
 
   ///  UpdatePatientServiceMarkAsPrint

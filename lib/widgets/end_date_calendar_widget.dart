@@ -51,6 +51,7 @@ class _EndDateCalendarWidgetState extends State<EndDateCalendarWidget> {
                   //You can format date as per your need
                   setState(() {
                     summeryVm.endDate = formattedDate!;//set foratted date to TextField value.
+                    summeryVm.getSummeryListData();
                     print("start ${summeryVm.endDate}");
                   });
 

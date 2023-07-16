@@ -5,6 +5,7 @@ import 'package:ritecare_hms/local_db/boxes/boxes.dart';
 import 'package:ritecare_hms/local_db/search_user_model.dart';
 import 'package:ritecare_hms/model/user_profile_model/user_profile_model.dart';
 import 'package:ritecare_hms/screens/patient_registration/short_form_register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/response/status.dart';
 import '../../model/service_id_model/service_id_model.dart';
@@ -24,8 +25,9 @@ class SearchItemScreen extends StatefulWidget {
 
 class _SearchItemScreenState extends State<SearchItemScreen> {
   LoginPreference loginPreference = LoginPreference();
-  final searchVM = Get.put(SearchViewModel());
 
+  final searchVM = Get.put(SearchViewModel());
+  String?  serviceType;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +73,8 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                               shrinkWrap: true,
                               itemCount: searchVM.patientListItem.value.length,
                               itemBuilder: (context, index){
-                                print("item ${searchVM.patientListItem[index].id.toString()}");
+
+
                                 return InkWell(
                                   onTap: (){
                                     ServiceIdModel serviceIdModel = ServiceIdModel(
@@ -80,13 +83,14 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
 
                                     loginPreference.saveServiceId(serviceIdModel);
 
+
                                     final data = SearchUserModel(
                                       id:  searchVM.patientListItem[index].id,
                                       cellNo:  searchVM.patientListItem[index].phoneNumber,
                                       name:searchVM.patientListItem[index].firstName,
                                       officalNo: searchVM.patientListItem[index].serviceId,
                                       patientId: searchVM.patientListItem[index].id,
-                                      gender: searchVM.patientListItem[index].gender.name,
+                                      gender: searchVM.patientListItem[index].gender?.name,
                                       email: searchVM.patientListItem[index].email,
                                       dob: searchVM.patientListItem[index].dOB,
                                       bloodGroup: searchVM.patientListItem[index].bloodGroup,
@@ -94,8 +98,8 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                                       emergencyContact: searchVM.patientListItem[index].emergencyNumber,
                                       emergencyRelation: searchVM.patientListItem[index].emergencyContactRelation,
                                       relationship: searchVM.patientListItem[index].relationship?.name,
-                                      rank: searchVM.patientListItem[index].rank?.name,
-                                      unit: searchVM.patientListItem[index].unit?.name,
+                                      rank: searchVM.patientListItem[index].rankName,
+                                      unit: searchVM.patientListItem[index].unitName,
                                       patienStatus: searchVM.patientListItem[index].patientStatus,
                                       patientPrefix: searchVM.patientListItem[index].patientPrefix?.name,
                                       emergencyName: searchVM.patientListItem[index].emergencyContactName,
@@ -104,12 +108,24 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                                       nationalId: searchVM.patientListItem[index].nationalId,
                                     //  patientOldId: searchVM.patientListItem[index].pat?.name,
                                       lastName: searchVM.patientListItem[index].lastName,
+                                      serviceType: searchVM.patientListItem[index].serviceTypeId,
+                                      isRetired: searchVM.patientListItem[index].isRetired,
+                                      rankId:  searchVM.patientListItem[index].rankId,
+                                      unitId:  searchVM.patientListItem[index].unitId,
+                                      statusId: searchVM.patientListItem[index].patientStatusId,
+                                      prefixId: searchVM.patientListItem[index].patientPrefixId,
+                                      relationId: searchVM.patientListItem[index].relationshipId,
+                                      genderId: searchVM.patientListItem[index].genderId,
+                                      bloodGroupId: searchVM.patientListItem[index].bloodGroupId,
+
 
                                     );
                                     final box = Boxes.getData();
                                     box.put("id", data);
                                     data.save();
                                     print("hive ${box.length}");
+
+
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=> PatientInfoScreen()));
 
                                   },

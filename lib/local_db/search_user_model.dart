@@ -56,6 +56,23 @@ class SearchUserModel extends HiveObject{
   dynamic city;
   @HiveField(25)
   dynamic emergencyName;
+  @HiveField(26)
+  dynamic isRetired;
+  @HiveField(27)
+  dynamic rankId;
+  @HiveField(28)
+  dynamic unitId;
+  @HiveField(29)
+  dynamic relationId;
+  @HiveField(30)
+  dynamic prefixId;
+  @HiveField(31)
+  dynamic statusId;
+  @HiveField(32)
+  dynamic genderId;
+  @HiveField(34)
+  dynamic bloodGroupId;
+
 
   SearchUserModel({
       this.id,
@@ -83,7 +100,15 @@ class SearchUserModel extends HiveObject{
     this.city,
     this.nationalId,
     this.patientOldId,
-    this.street
+    this.street,
+    this.isRetired,
+    this.rankId,
+    this.unitId,
+    this.statusId,
+    this.prefixId,
+    this.relationId,
+    this.bloodGroupId,
+    this.genderId
   });
 }
 

@@ -27,7 +27,7 @@ class ProfileUserDataViewWidget extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                            flex: 4,
+                            flex: 5,
                             child: Row(
                               children: [Text(title, style: TextStyle(fontWeight: FontWeight.w500, color: Styles.textGreen, fontSize: 14),),],)),
                         Expanded(flex: 1, child: Row(

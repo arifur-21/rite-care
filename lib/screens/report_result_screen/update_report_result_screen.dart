@@ -45,10 +45,9 @@ class _UpdateReportResultScreenState extends State<UpdateReportResultScreen> {
   @override
   void initState() {
     tableRowDesignVm
-        .getTableRowDesignItem(
+        .getTableKeyPairItem(
             widget.patientService.id,
-            widget.patientService.itemId,
-            widget.patientService.groupItemIds ?? 0)
+            widget.patientService.patientServiceIds ?? '')
         .then((value) {
       designList = value.design ?? [];
 
@@ -63,7 +62,8 @@ class _UpdateReportResultScreenState extends State<UpdateReportResultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("===========================result Screen");
+    print("===========================result Screen patient service id");
+    print("patinet Service id ${widget.patientService.id}");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Styles.primaryColor,
@@ -132,6 +132,7 @@ class _UpdateReportResultScreenState extends State<UpdateReportResultScreen> {
                                               onChanged: (value) {
                                                 designList[index].result =
                                                     value;
+                                                print("result on change value ${jsonEncode(designList[index])}");
                                               },
                                               controller: listController[index],
                                               decoration: InputDecoration(
@@ -233,6 +234,7 @@ class _UpdateReportResultScreenState extends State<UpdateReportResultScreen> {
           InkWell(
               onTap: () async {
                 print(jsonEncode(designList));
+
                 ReportBodyDataModel bodyModel = ReportBodyDataModel(
                     invoiceId: widget.patientService.invoiceId,
                     invoiceStatusUpdate: true,
@@ -321,7 +323,7 @@ class _UpdateReportResultScreenState extends State<UpdateReportResultScreen> {
                     templateList: designList
                         .map(
                           (e) => TemplateList(
-                              patientServiceId: widget.patientService.id,
+                              patientServiceId: e.patientServiceId,
                               name: e.name,
                               result: e.result,
                               headerName: e.headerName,
@@ -349,7 +351,7 @@ class _UpdateReportResultScreenState extends State<UpdateReportResultScreen> {
                               tenant: e.tenant,
                               id: e.id,
                               active: e.active,
-                              userId: e.unitId,
+                              userId: e.userId,
                               hasErrors: e.hasErrors,
                               errorCount: e.errorCount,
                               noErrors: e.noErrors,
@@ -360,9 +362,10 @@ class _UpdateReportResultScreenState extends State<UpdateReportResultScreen> {
 
                 print("==================test print==================");
 
-                print(jsonEncode(bodyModel.serviceItem?.patient));
+                print(jsonEncode(bodyModel));
                 print("==================test print==================");
                 print(jsonEncode(widget.patientService.patient));
+
 
                 //     bodyDataVM.getBodyData(jsonEncode(bodyModel));
 

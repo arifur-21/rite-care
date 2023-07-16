@@ -19,6 +19,8 @@ import '../../view_model/patient_register_view_model/patient_register_view_model
 import '../../widgets/app_bar_widget.dart';
 import '../../widgets/drawer_widget.dart';
 import '../../widgets/reuseable_header_container_widget.dart';
+import '../home_screen.dart';
+import '../navigation/pageOne.dart';
 import 'components/register_dropdown_list_data.dart';
 import 'components/register_text_field_validate.dart';
 import 'full_form_register_screen.dart';
@@ -93,6 +95,18 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
 
   @override
   void initState() {
+    registerVM.officalNOController.value.clear();
+    registerVM.firstNameController.value.clear();
+    registerVM.lastNameController.value.clear();
+    registerVM.phoneNumberController.value.clear();
+    registerVM.nationalIdController.value.clear();
+    registerVM.emailController.value.clear();
+    registerVM.emergencyContactNumberController.value.clear();
+    registerVM.emergencyContactRelationController.value.clear();
+    registerVM.emergencyNameContactController.value.clear();
+    registerVM.streetController.value.clear();
+    registerVM.cityController.value.clear();
+    registerVM.patientOldIdController.value.clear();
     registerVM.getServiceTypeId();
     super.initState();
   }
@@ -119,7 +133,8 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
                 leadingText: 'Patient Registration',
                 tralingIcon: "assets/icons/cancel.png",
                 onTap: () {
-                  Get.back();
+                  Get.to(HomeScreen());
+                 // Navigator.pop(context);
                 },
               ),
               SizedBox(
@@ -214,62 +229,72 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
                         switch (registerVM.rxRequestStatus1.value) {
                           case Status1.SUCCESS:
                             return Container(
-                              child: TextFormField(
-                                onChanged: (value) async {
-                                  await registerVM.getServiceTypeId(
-                                      serviceNumber: value);
-                                  print("number $value");
-                                  setState(() {
-                                    inputServiceId = value;
-                                    resServiceId = registerVM.serviceTypeIdList
-                                        .value.patient?.serviceId;
-                                  });
-                                  if (value ==
-                                      registerVM.serviceTypeIdList.value.patient
-                                          ?.serviceId) {
-                                    print("already axist $value");
-                                  }
-                                },
-                                controller:
-                                    registerVM.officalNOController.value,
-                                keyboardType: TextInputType.number,
-                                validator: (value) {
-                                  print("$value");
-                                  if (value!.isEmpty || value == null) {
-                                    return "enter your personal/offical number";
-                                  }
-                                  if (inputServiceId ==
-                                      registerVM.serviceTypeIdList.value.patient
-                                          ?.serviceId) {
-                                    print("already axist111 $inputServiceId");
-                                  }
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: Get.width * 0.88,
+                                    child:  TextFormField(
+                                      onChanged: (value) async {
+                                        await registerVM.getServiceTypeId(
+                                            serviceNumber: value);
+                                        print("number $value");
+                                        setState(() {
+                                          inputServiceId = value;
+                                          resServiceId = registerVM.serviceTypeIdList
+                                              .value.patient?.serviceId;
+                                        });
+                                        if (value ==
+                                            registerVM.serviceTypeIdList.value.patient
+                                                ?.serviceId) {
+                                          print("already axist $value");
+                                        }
+                                      },
+                                      controller:
+                                      registerVM.officalNOController.value,
+                                      keyboardType: TextInputType.number,
+                                      validator: (value) {
+                                        print("$value");
+                                        if (value!.isEmpty || value == null) {
+                                          return "enter your personal/offical number";
+                                        }
+                                        if (inputServiceId ==
+                                            registerVM.serviceTypeIdList.value.patient
+                                                ?.serviceId) {
+                                          print("already axist111 $inputServiceId");
+                                        }
 
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                  label: Text("Personal/offical NO"),
-                                  labelStyle: TextStyle(
-                                      color: Styles.primaryColor,
-                                      fontFamily: 'IstokWeb',
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 17),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(6),
+                                        return null;
+                                      },
+                                      decoration: InputDecoration(
+                                        label: Text("Personal/offical NO"),
+                                        labelStyle: TextStyle(
+                                            color: Styles.primaryColor,
+                                            fontFamily: 'IstokWeb',
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 17),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(6),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 2,
+                                              color: Styles.drawerListColor),
+                                          borderRadius: BorderRadius.circular(6),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 2,
+                                              color: Styles.drawerListColor),
+                                          borderRadius: BorderRadius.circular(6),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2,
-                                        color: Styles.drawerListColor),
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2,
-                                        color: Styles.drawerListColor),
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                ),
+                                  SizedBox(width: 6,),
+                                  Text("*", style: TextStyle(fontSize: 20, color: Colors.red),)
+                                ],
                               ),
+
                             );
                         }
                       }),
@@ -392,7 +417,7 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                   ),
-                                  controller: textEditingController..text = registerVM.rank ?? "",
+                                  controller: textEditingController,
                                   focusNode: focusNode,
                                   onSubmitted: (String value) {},
                                 );
@@ -493,7 +518,7 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                   ),
-                                  controller: _searchController..text = registerVM.unit ?? "",
+                                  controller: _searchController,
                                   focusNode: focusNode,
                                   onSubmitted: (String value) {},
                                 );
@@ -528,11 +553,22 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
                       SizedBox(
                         height: 15,
                       ),
-                      RegisterValidateTextField(
-                        textController: registerVM.firstNameController.value,
-                        hintText: "First Name",
-                        errorText: "enter your name",
+
+                      Row(
+                        children: [
+                          Container(
+                            width: Get.width * 0.88,
+                            child: RegisterValidateTextField(
+                              textController: registerVM.firstNameController.value,
+                              hintText: "First Name",
+                              errorText: "enter your name",
+                            ),
+                          ),
+                          SizedBox(width: 6,),
+                          Text("*", style: TextStyle(fontSize: 20, color: Colors.red),)
+                        ],
                       ),
+
                       SizedBox(
                         height: 15,
                       ),
@@ -587,11 +623,21 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
                       SizedBox(
                         height: 15,
                       ),
-                      RegisterValidateTextField(
-                        textController:  registerVM.phoneNumberController.value..text = registerVM.phoneNumber ?? "",
-                        hintText: "Phone Number",
-                        errorText: "enter your phone",
+                      Row(
+                        children: [
+                          Container(
+                            width: Get.width * 0.88,
+                            child:RegisterValidateTextField(
+                              textController:  registerVM.phoneNumberController.value,
+                              hintText: "Phone Number",
+                              errorText: "enter your phone",
+                            ),
+                          ),
+                          SizedBox(width: 6,),
+                          Text("*", style: TextStyle(fontSize: 20, color: Colors.red),)
+                        ],
                       ),
+
                       SizedBox(
                         height: 15,
                       ),
@@ -655,7 +701,8 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
                     if (selectGender.isEmpty) {
                       print("gender null");
                     }
-                    print("status  ${selectPatientStatus}");
+                    print("status  ${patientStatusId}");
+                    print("blood group id111$bloodGroupName");
                     if (_formKey.currentState!.validate()) {
                       registerVM.registerPatientFullForm(
                           serviceId: selectServiceType,
@@ -676,7 +723,10 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
                           rankName: rankName,
                           unitId: unitId,
                           unitName: unitName);
+
+
                     }
+
                   })
             ],
           ),
@@ -850,7 +900,6 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
                                   selectGender = e.toString();
                                   isGender = false;
                                   setState(() {
-                                    //'Male', 'Female', 'Third Gender'
                                     if (e == "Male") {
                                       genderId = 1;
                                     } else if (e == "Female") {
@@ -1310,7 +1359,7 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Date of Birth  ${dateOfBirth.toString()}',
+          Text('${dateOfBirth.toString()}',
               style: TextStyle(fontSize: 16, color: Styles.primaryColor)),
           InkWell(
               onTap: () async {

@@ -82,7 +82,7 @@ class OtListViewModel extends GetxController {
     await _api.postOperationScheduleStatus({
       "surgery": Surgery.fromJson(jsonDecode(jsonEncode(postData)))
     }).then((value) {
-      getSchedule();
+     getSchedule();
       Utils.snakBar("status", 'Status Change successfull');
     }).onError((error, stackTrace) {
       Utils.snakBar("Error", error.toString());

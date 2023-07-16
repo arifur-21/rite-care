@@ -84,7 +84,7 @@ class ShortFormRegisterViewModel extends GetxController{
     dynamic rankName,
     dynamic unitName,
   }){
-    print("unit ${statusId}");
+    print("status id vm ${statusId}");
     print("rank ${rankName}");
     print("rank ${rankListItem}");
 
@@ -92,23 +92,22 @@ class ShortFormRegisterViewModel extends GetxController{
       "FirstName": short_firstNameController.value.text,
       "PhoneNumber": short_phoneNumberController.value.text,
       "GenderId": genderId,
-      "BloodGroup": null,
+      "BloodGroup": bloodGroupName.toString(),
       "BloodGroupId": bloodId,
-      "DOB": dateOfBrith.toString(),
+      "DOB": dateOfBrith,
       "Email": short_emailController.value.text,
       "Photo": null,
-      "CreatedDate": dateOfBrith.toString(),
+      "CreatedDate": dateOfBrith,
       "ServiceId": short_officalNOController.value.text,
       "RelationshipId": relationId,
       "RankId": rankId,
       "TradeId": null,
       "UnitName": unitName.toString(),
       "RankName": rankName.toString(),
-      "TradeName": null,
       "UnitId": unitId,
       "IsRetired": isRetired,
       "PatientPrefixId": prefixId,
-      "PatientStatusId": statusId,
+      "PatientStatusId": null,
     };
 
     _api.registerPatient(data).then((value){

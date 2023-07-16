@@ -19,6 +19,7 @@ import '../../model/lab_test_model/summery_sub_item_model/report_body_data_model
 import '../../utils/color_styles.dart';
 
 import '../../view_model/summery_view_model/summery_details_view_model.dart';
+import '../../view_model/summery_view_model/summery_view_model.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen(
@@ -34,6 +35,7 @@ class ReportScreen extends StatefulWidget {
 
 class _ReportScreenState extends State<ReportScreen> {
   final tableRowDesignVm = Get.put(SummeryDetailsViewModel());
+  final summeryVM = Get.put(SummeryViewModel());
 
   late List<TextEditingController> listController;
 
@@ -41,13 +43,11 @@ class _ReportScreenState extends State<ReportScreen> {
 
   @override
   void initState() {
-    print("===========================");
-    print(widget.patientService.groupItemIds);
     tableRowDesignVm
         .getTableRowDesignItem(
             widget.patientService.id,
             widget.patientService.itemId,
-            widget.patientService.groupItemIds ?? 0)
+            widget.patientService.groupItemIds ?? '')
         .then((value) {
       designList = value.design ?? [];
 
@@ -60,7 +60,7 @@ class _ReportScreenState extends State<ReportScreen> {
 
   @override
   Widget build(BuildContext context) {
-   
+    print("service id------- ${widget.patientService.id}");
 
     return Scaffold(
       appBar: AppBar(
@@ -231,6 +231,8 @@ class _ReportScreenState extends State<ReportScreen> {
           InkWell(
               onTap: () async {
                 print(jsonEncode(designList));
+
+
                 ReportBodyDataModel bodyModel = ReportBodyDataModel(
                     invoiceId: widget.patientService.invoiceId,
                     invoiceStatusUpdate: true,
@@ -347,7 +349,7 @@ class _ReportScreenState extends State<ReportScreen> {
                               tenant: e.tenant,
                               id: e.id,
                               active: e.active,
-                              userId: e.unitId,
+                              userId: e.userId,
                               hasErrors: e.hasErrors,
                               errorCount: e.errorCount,
                               noErrors: e.noErrors,
@@ -358,6 +360,7 @@ class _ReportScreenState extends State<ReportScreen> {
 
                 await tableRowDesignVm.saveEditLabReportResult(
                     result: bodyModel);
+                summeryVM.getSummeryListData(isRefreshed: true);
                 Navigator.pop(context);
               },
               child: const Icon(

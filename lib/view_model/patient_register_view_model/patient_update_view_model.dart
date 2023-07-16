@@ -83,9 +83,13 @@ class PatientUpdateViewModel extends GetxController{
   }
       ){
 
+    print("+++++++++++++++++id ++++++");
     print(unitId);
-    print(rankId);
-    print(serviceId);
+    print(relationId);
+    print("pre $prefixId");
+    print("blood group id $bloodId");
+    print("blood group  $bloodGroupName");
+
 
     Map data = {
      // "OldId": 899,
@@ -93,41 +97,34 @@ class PatientUpdateViewModel extends GetxController{
       "LastName": update_lastNameController.value.text,
       "PhoneNumber": update_phoneNumberController.value.text,
       "GenderId":  genderId,
-      "BloodGroup": "A (-ve)",
       "BloodGroupId": bloodId,
-      "FatherName": null,
-      "DOB": dateOfBrith.toString(),
+      "BloodGroup": bloodGroupName.toString() ,
+      "DOB": dateOfBrith,
       "NationalId": update_nationalIdController.value.text,
       "Street": update_streetController.value.text,
       "City": update_cityController.value.text,
-      "Country": "BD",
       "Email": update_emailController.value.text,
       "Photo": null,
       "EmergencyNumber": update_emergencyNameContactController.value.text,
       "EmergencyContactName": update_emergencyNameContactController.value.text,
       "EmergencyContactRelation": update_emergencyContactRelationController.value.text,
-      "CreatedDate": dateOfBrith.toString(),
+      "CreatedDate": dateOfBrith,
       "ServiceId": update_officalNOController.value.text,
       "RelationshipId": relationId,
-      "RankId": 0,
-      "TradeId": null,
-     // "ServiceTypeId": 0,
-      "RankTypeId": null,
+      "RankId": rankId,
       "UnitName": unitName,
       "RankName": rankName,
-      "TradeName": null,
-      "UnitId": 0,
+      "UnitId": unitId,
       "IsRetired": isRetired,
       "PatientPrefixId": prefixId,
-      "PatientStatusId": statusId,
-      "OldDob": null,
-      "TenantId": 25,
+      "PatientStatusId": null,
       "Id": serviceId,
     };
 
     _api.registrationUpdate(data).then((value){
 
       Utils.snakBar("Update", 'Update Successfull');
+      print("value 111 $value");
     }).onError((error, stackTrace) {
       Utils.snakBar("Error", error.toString());
       print("error occured : ${error.toString()}");

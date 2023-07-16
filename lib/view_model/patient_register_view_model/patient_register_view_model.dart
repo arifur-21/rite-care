@@ -86,78 +86,7 @@ class PatientRegisterViewModel extends GetxController {
     });
   }
 
-  //registration short form
-  void registerPatient({
-    dynamic serviceId,
-    dynamic genderId,
-    dynamic bloodId,
-    dynamic imageUrl,
-    dynamic dateOfBrith,
-    dynamic isRetired,
-    dynamic prefixId,
-    dynamic statusId,
-    dynamic relationId,
-    dynamic rankId,
-    dynamic unitId,
-    dynamic patientPrefixName,
-    dynamic patientStatusName,
-    dynamic patientRelationName,
-    dynamic bloodGroupName,
-    dynamic genderName,
-    dynamic rankName,
-    dynamic unitName,
-  }) {
-    print("unit ${statusId}");
-    print("rank ${rankName}");
-    print("rank ${rankListItem}");
 
-    Map data = {
-      "FirstName": firstNameController.value.text,
-      "LastName": lastNameController.value.text,
-      "PhoneNumber": phoneNumberController.value.text,
-      "GenderId": genderId,
-      "BloodGroup": null,
-      "BloodGroupId": bloodId,
-      "DOB": dateOfBrith.toString(),
-      "NationalId": nationalIdController.value.text,
-      "Street": streetController.value.text,
-      "City": cityController.value.text,
-      "Zip": "",
-      "Country": "BD",
-      "Email": emailController.value.text,
-      "Photo": null,
-      "EmergencyNumber": emergencyNameContactController.value.text,
-      "EmergencyContactName": emergencyNameContactController.value.text,
-      "EmergencyContactRelation": emergencyContactRelationController.value.text,
-      "CreatedDate": dateOfBrith.toString(),
-      "ServiceId": officalNOController.value.text,
-      "RelationshipId": relationId,
-      "RankId": rankId,
-      "TradeId": null,
-      // "ServiceTypeId": 0,
-      "UnitName": unitName.toString(),
-      "RankName": rankName.toString(),
-      "TradeName": null,
-      "UnitId": unitId,
-      "IsRetired": isRetired,
-      "PatientPrefixId": prefixId,
-      "PatientStatusId": null,
-    };
-
-    _api.registerPatient(data).then((value) {
-      if (value == "PatientExist") {
-        Utils.snakBar("Registration", 'Already Exist.');
-      }
-      print(value);
-      if (value['Id'] > 0) {
-        Utils.snakBar("Registration", 'Registration successfully');
-      }
-      print("short form register ${value}");
-    }).onError((error, stackTrace) {
-      Utils.snakBar("Error", error.toString());
-      print("error occured : ${error.toString()}");
-    });
-  }
 
   //registration full form
   void registerPatientFullForm({
@@ -180,26 +109,29 @@ class PatientRegisterViewModel extends GetxController {
     dynamic rankName,
     dynamic unitName,
   }) {
+    print("national id${nationalIdController.value.text.toString()}");
+    print("blood group id${emergencyNameContactController.value.text}");
     Map data = {
+      "OldId": patientOldIdController.value.text,
       "FirstName": firstNameController.value.text,
       "LastName": lastNameController.value.text,
-      "PhoneNumber": phoneNumberController.value.text,
+      "PhoneNumber": phoneNumberController.value.text.toString(),
       "GenderId": genderId,
-      "BloodGroup": null,
+      "BloodGroup": bloodGroupName.toString(),
       "BloodGroupId": bloodId,
-      "DOB": dateOfBrith.toString(),
-      "NationalId": nationalIdController.value.text,
-      "Street": streetController.value.text,
-      "City": cityController.value.text,
-      "Zip": "",
-      "Country": "BD",
+      "DOB": dateOfBrith,
+      "NationalId": nationalIdController.value.text.toString(),
+      "Street": streetController.value.text.toString(),
+      "City": cityController.value.text.toString(),
+      //"Zip": "",
+      "Country": cityController.value.text.toString(),
       "Email": emailController.value.text,
       "Photo": null,
-      "EmergencyNumber": emergencyNameContactController.value.text,
+      "EmergencyNumber": emergencyContactNumberController.value.text.toString(),
       "EmergencyContactName": emergencyNameContactController.value.text,
       "EmergencyContactRelation": emergencyContactRelationController.value.text,
-      "CreatedDate": dateOfBrith.toString(),
-      "ServiceId": officalNOController.value.text,
+      "CreatedDate": dateOfBrith,
+      "ServiceId": officalNOController.value.text.toString(),
       "RelationshipId": relationId,
       "RankId": rankId,
       "TradeId": null,

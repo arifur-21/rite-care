@@ -134,6 +134,7 @@ class _PatientSearchState extends State<PatientSearch> {
                             if(_formKey2.currentState!.validate()){
                               searchVM.searchPatient();
                               Navigator.push(context, MaterialPageRoute(builder: (context)=> SearchItemScreen()));
+                              searchVM.patienidController.value.clear();
                             }
                             searchVM.patientCellNoController.value.clear();
                             searchVM.patientNameController.value.clear();

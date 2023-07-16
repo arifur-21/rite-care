@@ -85,13 +85,14 @@ class _PatientListFilterWidgetState extends State<PatientListFilterWidget> {
                   },
                   child: Container(
                     height: 60,
-                    width: Get.width * 0.4,
-                    padding: const EdgeInsets.all(12.0),
+                    width: Get.width * 0.42,
+                    padding: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
                         border: Border.all(),
                         borderRadius: BorderRadius.circular(6)
                     ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           height: 26,
@@ -103,9 +104,9 @@ class _PatientListFilterWidgetState extends State<PatientListFilterWidget> {
                             ),
                           ),
                         ),
-                        SizedBox(width: 20,),
+                        SizedBox(width: 10,),
                         Text("Filter", style: Styles.poppinsFont14_600),
-                        SizedBox(width: 20,),
+                        SizedBox(width: 10,),
                         Visibility(
                             visible: isCancel,
                             child: InkWell(
@@ -116,13 +117,13 @@ class _PatientListFilterWidgetState extends State<PatientListFilterWidget> {
                                     patientList.categoryId.value = 0;
                                     patientList.unitNameId.value = 0;
                                    patientList.getPatientList();
-
+                                    bloodGroupHT = 'All';
                                     isCancel = false;
                                     unitName = '';
                                   });
 
                                 },
-                                child: Image.asset('assets/images/delete.png', height: 50,))),
+                                child: Image.asset('assets/images/delete.png', height: 30,))),
 
                       ],
                     ),
@@ -143,246 +144,249 @@ class _PatientListFilterWidgetState extends State<PatientListFilterWidget> {
           return StatefulBuilder(
             /// you need to use `StatefulBuilder`'s setState to update dialog ui
             // therefor I am passing this setState to `_showDatePicker`
-            builder: (context, setState) => AlertDialog(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  InkWell(
-                      onTap: _cancel,
-                      child: Icon(
-                        Icons.cancel_presentation, size: 30, color: Colors.red,)),
-                ],
-              ),
-              content: SingleChildScrollView(
-                child: Column(
-
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            builder: (context, setState) => SingleChildScrollView(
+              child: AlertDialog(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    InkWell(
+                        onTap: _cancel,
+                        child: Icon(
+                          Icons.cancel_presentation, size: 30, color: Colors.red,)),
+                  ],
+                ),
+                content: SingleChildScrollView(
+                  child: Column(
 
-                    ExpansionTile(
-                      leading: Text( "${bloodGroupHT.toString()}" , style: TextStyle(fontSize: 16)),
-                      title: Text(""),
-                      children: [
-                        SizedBox(height: 10,),
-                        Divider(height: 2, color: Colors.grey,),
-                        SizedBox(height: 5,),
-                        Column(
-                          children: [
-                            ListBody(
-                              children: [
-                                Column(
-                                  children: [
-                                    Container(
-                                      width: Get.width * 0.9,
-                                      height: 150,
-                                      child:
-                                      ListView(
-                                        shrinkWrap: true,
-                                        children: bloodGroupList.map((e) => Column(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(12.0),
-                                              child: InkWell(
-                                                  onTap: (){
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
 
-                                                    if(e == "All"){
-                                                      bloodStatusId = 0;
-                                                    }
-                                                    else if(e == "A(+VE)"){
-                                                      bloodStatusId = 1;
+                      ExpansionTile(
+                        leading: Text( "${bloodGroupHT.toString()}" , style: TextStyle(fontSize: 16)),
+                        title: Text(""),
+                        children: [
+                          SizedBox(height: 10,),
+                          Divider(height: 2, color: Colors.grey,),
+                          SizedBox(height: 5,),
+                          Column(
+                            children: [
+                              ListBody(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Container(
+                                        width: Get.width * 0.9,
+                                        height: 150,
+                                        child:
+                                        ListView(
+                                          shrinkWrap: true,
+                                          children: bloodGroupList.map((e) => Column(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.all(12.0),
+                                                child: InkWell(
+                                                    onTap: (){
+                                                      setState((){
 
-                                                    }else if(e == "A(-VE)"){
-                                                      bloodStatusId = 2;
-                                                    } else if(e == "B(+VE)"){
-                                                      bloodStatusId = 3;
-                                                    }else if(e == "B(-VE)"){
-                                                      bloodStatusId = 4;
-                                                    }
-                                                    else if(e == "O(+VE)"){
-                                                      bloodStatusId = 5;
-                                                    }else if(e == "O(-VE)"){
-                                                      bloodStatusId = 6;
-                                                    }else if(e == "Ab(+VE)"){
-                                                      bloodStatusId = 7;
-                                                    }else if(e == "Ab(-VE)"){
-                                                      bloodStatusId = 8;
 
-                                                    }
-                                                    patientList.categoryId.value = bloodStatusId;
 
-                                                    print("blood ${bloodGroup}");
+                                                      if(e == "All"){
+                                                        bloodGroupHT = 'All';
+                                                        bloodStatusId = 0;
+                                                      }
+                                                      else if(e == "A(+VE)"){
+                                                        bloodGroupHT = "A(+VE)";
+                                                        bloodStatusId = 1;
 
-                                                    print(" id ${bloodStatusId}");
+                                                      }else if(e == "A(-VE)"){
+                                                        bloodGroupHT = "A(-VE)";
+                                                        bloodStatusId = 2;
+                                                      } else if(e == "B(+VE)"){
+                                                        bloodGroupHT = "B(+VE)";
+                                                        bloodStatusId = 3;
+                                                      }else if(e == "B(-VE)"){
+                                                        bloodGroupHT = "B(-VE)";
+                                                        bloodStatusId = 4;
+                                                      }
+                                                      else if(e == "O(+VE)"){
+                                                        bloodGroupHT = "O(+VE)";
+                                                        bloodStatusId = 5;
+                                                      }else if(e == "O(-VE)"){
+                                                        bloodGroupHT = "O(-VE)";
+                                                        bloodStatusId = 6;
+                                                      }else if(e == "Ab(+VE)"){
+                                                        bloodGroupHT = "Ab(+VE)";
+                                                        bloodStatusId = 7;
+                                                      }else if(e == "Ab(-VE)"){
+                                                        bloodGroupHT = "Ab(-VE)";
+                                                        bloodStatusId = 8;
 
-                                                  },
-                                                  child: Column(
-                                                    children: [
-                                                      Text("${e.toString()}"),
-                                                      // Text("${e.toString()}",style: TextStyle(color: (isClick == false) ? Colors.red : Colors.green),),
-                                                      SizedBox(height: 10,),
-                                                      Divider(height: 2, color: Colors.grey,)
-                                                    ],
-                                                  )),
+                                                      }
+                                                      patientList.categoryId.value = bloodStatusId;
 
-                                            ),
-                                          ],
-                                        )).toList(),
+                                                      print("blood ${bloodGroup}");
+                                                    //  bloodGroupHT = bloodGroup;
+
+                                                      print(" id ${bloodStatusId}");
+                                                      });
+
+                                                    },
+                                                    child: Column(
+                                                      children: [
+                                                        Text("${e.toString()}"),
+                                                        // Text("${e.toString()}",style: TextStyle(color: (isClick == false) ? Colors.red : Colors.green),),
+                                                        SizedBox(height: 10,),
+                                                        Divider(height: 2, color: Colors.grey,)
+                                                      ],
+                                                    )),
+
+                                              ),
+                                            ],
+                                          )).toList(),
+                                        ),
+
+
+
                                       ),
+                                    ],
+                                  )
+                                ],
+                              ),
 
-
-
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-
-                          ],
-                        ),
-                      ],
-
-                    ),
-
-                  ],
-                ),
-              ),
-              actions: [
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("Select Start Date", style: TextStyle(),),
-                  ],
-                ),
-                SizedBox(height: 5,),
-                PatientStartDateCalendarWidget(),
-                SizedBox(height: 10,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("Select Start End", style: TextStyle(),),
-                  ],
-                ),
-                SizedBox(height: 5,),
-                PatientEndDateCalendarWidget(),
-                SizedBox(height: 10,),
-
-                Column(
-                  children: [
-
-                    FutureBuilder(
-                        future: registerVM.getUnitData(),
-                        builder: (contxt, data){
-                          return   Autocomplete<RankModel>(
-                            initialValue:
-                            TextEditingValue(text: unitName ?? ""),
-                            optionsBuilder: (TextEditingValue textValue){
-                              registerVM.getUnitData(query: textValue.text.toLowerCase());
-                              if(textValue.text.isEmpty){
-                                return List.empty();
-                              }
-
-                              return  registerVM.unitListItem.where((value) => value?.name.toLowerCase()
-                                  .contains(textValue.text.toLowerCase())).toList();
-                            },
-
-                            fieldViewBuilder: (BuildContext context, TextEditingController  _searchController,
-                                FocusNode focusNode,
-                                VoidCallback onFieldSubmitted) {
-
-                              return Container(
-                                height: 40,
-                                child: TextField(
-
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: "Unit",
-                                    labelStyle: TextStyle(color: Styles.greyColor,fontFamily: 'IstokWeb', fontWeight: FontWeight.w700, fontSize: 17),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(width: 2, color: Styles.drawerListColor),
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(width: 2, color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                  ),
-
-                                  controller: _searchController,
-                                  focusNode: focusNode,
-                                  onSubmitted: (String value) {
-
-                                  },
-                                ),
-                              );
-                            },
-
-
-                           /* optionsViewBuilder: (BuildContext context, Function onSelect, Iterable<RankModel> dataList){
-                              return Material(
-                                child: ConstrainedBox(
-                                    constraints: const BoxConstraints(maxHeight: 100, maxWidth: 600),
-                                  child: ListView.builder(
-                                      itemCount: dataList.length,
-                                      itemBuilder: (context, index){
-                                        print(dataList.length);
-                                        RankModel data = dataList.elementAt(index);
-                                        return InkWell(
-                                          onTap: ()=> onSelect(data),
-                                          child: ListTile(
-                                            title: Text("${data.name}"),
-                                          ),
-                                        );
-
-                                      }),
-                                ),
-                              );
-                            },*/
-
-
-                            displayStringForOption: (RankModel rank)=> '${rank.name}',
-                            onSelected: (selectedValue){
-                              patientList.unitNameId.value = selectedValue.id;
-                              unitId = selectedValue.id;
-                              unitName = selectedValue.name;
-                              print("select value ${selectedValue.id}");
-                            },
-                          );
-                        }),
-
-                  ],
-                ),
-
-                SizedBox(height: 20,),
-                Padding(
-                  padding: const EdgeInsets.only(right: 10, bottom: 10),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(color: Styles.primaryColor, width: 2)
+                            ],
+                          ),
+                        ],
 
                       ),
-                      child: InkWell(
-                          onTap: () {
-                          patientList.getPatientList();
-                            Navigator.pop(context);
-                          },
-                          child: Center(
-                              child: Text(
-                                "Go", style: TextStyle(fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Styles.primaryColor),))),
-                    ),
+
+                    ],
                   ),
                 ),
+                actions: [
 
-              ],
+                  PatientStartDateCalendarWidget(),
+                  SizedBox(height: 10,),
+
+                  PatientEndDateCalendarWidget(),
+                  SizedBox(height: 10,),
+
+                  Column(
+                    children: [
+
+                      FutureBuilder(
+                          future: registerVM.getUnitData(),
+                          builder: (contxt, data){
+                            return   Autocomplete<RankModel>(
+                              initialValue:
+                              TextEditingValue(text: unitName ?? ""),
+                              optionsBuilder: (TextEditingValue textValue){
+                                registerVM.getUnitData(query: textValue.text.toLowerCase());
+                                if(textValue.text.isEmpty){
+                                  return List.empty();
+                                }
+
+                                return  registerVM.unitListItem.where((value) => value?.name.toLowerCase()
+                                    .contains(textValue.text.toLowerCase())).toList();
+                              },
+
+                              fieldViewBuilder: (BuildContext context, TextEditingController  _searchController,
+                                  FocusNode focusNode,
+                                  VoidCallback onFieldSubmitted) {
+
+                                return Container(
+                                  height: 40,
+                                  child: TextField(
+
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: "Unit",
+                                      labelStyle: TextStyle(color: Styles.greyColor,fontFamily: 'IstokWeb', fontWeight: FontWeight.w700, fontSize: 17),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(width: 2, color: Styles.greyColor),
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(width: 2, color: Colors.grey),
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                    ),
+
+                                    controller: _searchController,
+                                    focusNode: focusNode,
+                                    onSubmitted: (String value) {
+
+                                    },
+                                  ),
+                                );
+                              },
+
+
+                             /* optionsViewBuilder: (BuildContext context, Function onSelect, Iterable<RankModel> dataList){
+                                return Material(
+                                  child: ConstrainedBox(
+                                      constraints: const BoxConstraints(maxHeight: 100, maxWidth: 600),
+                                    child: ListView.builder(
+                                        itemCount: dataList.length,
+                                        itemBuilder: (context, index){
+                                          print(dataList.length);
+                                          RankModel data = dataList.elementAt(index);
+                                          return InkWell(
+                                            onTap: ()=> onSelect(data),
+                                            child: ListTile(
+                                              title: Text("${data.name}"),
+                                            ),
+                                          );
+
+                                        }),
+                                  ),
+                                );
+                              },*/
+
+
+                              displayStringForOption: (RankModel rank)=> '${rank.name}',
+                              onSelected: (selectedValue){
+                                patientList.unitNameId.value = selectedValue.id;
+                                unitId = selectedValue.id;
+                                unitName = selectedValue.name;
+                                print("select value ${selectedValue.id}");
+                              },
+                            );
+                          }),
+
+                    ],
+                  ),
+
+                  SizedBox(height: 20,),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10, bottom: 10),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        width: 35,
+                        height: 35,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: Styles.primaryColor, width: 2)
+
+                        ),
+                        child: InkWell(
+                            onTap: () {
+                            patientList.getPatientList();
+                              Navigator.pop(context);
+                            },
+                            child: Center(
+                                child: Text(
+                                  "Go", style: TextStyle(fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: Styles.primaryColor),))),
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
             ),
           );
         });

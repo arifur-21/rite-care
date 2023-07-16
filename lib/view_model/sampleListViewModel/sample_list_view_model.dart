@@ -6,6 +6,7 @@ import 'package:ritecare_hms/model/lab_test_model/summery_model0/summery_model0.
 import '../../data/response/status.dart';
 import '../../model/lab_test_model/status_model.dart';
 import '../../model/lab_test_model/summery_model0/item.dart';
+import '../../model/service_id_model/service_id_model.dart';
 import '../../repository/repository.dart';
 import '../../repository/search_repository/SearchRepository.dart';
 import '../../shere_preference/login_preference.dart';
@@ -49,8 +50,9 @@ class SampleListVeiewModel extends GetxController{
         dynamic labTestSuggNameId = null,
         String invoiceNum = '',
         bool isRefreshed = true,
+        String sampleId = '',
         }) async {
-    // ServiceIdModel? service = await loginPreference.getServiceId();
+     ServiceIdModel? service = await loginPreference.getServiceId();
     print("lab name sugge Id vm121231----- $labTestSuggNameId");
     if (isRefreshed == true) {
       pageNumber.value = 1;
@@ -59,7 +61,7 @@ class SampleListVeiewModel extends GetxController{
 
       await _api
           .getSampleListData(
-          startDate, endDate, categoryId.value, pageNumber.value, 0, labTestSuggNameId, invoiceNum)
+          startDate, endDate, categoryId.value, pageNumber.value, service.setviceId ?? 0, invoiceNum,sampleId)
           .then((value) {
         setRxRequestStatus(Status.SUCCESS);
         setSampleList(value);
@@ -84,7 +86,7 @@ class SampleListVeiewModel extends GetxController{
 
         await _api
             .getSampleListData(
-            startDate, endDate, categoryId.value, pageNumber.value, 0,labTestSuggNameId,invoiceNum)
+            startDate, endDate, categoryId.value, pageNumber.value, service.setviceId ?? 0,invoiceNum, sampleId)
             .then((value) {
           setRxRequestStatus(Status.SUCCESS);
           setSampleList(value);
@@ -103,30 +105,6 @@ class SampleListVeiewModel extends GetxController{
       }
     }
   }
-
-
-
-
-  /*/// get sample list data
-  void getSampleListData({ statusId = 0,page ,serviceId })async {
-    print("start date vm $startDate");
-    print("end date vm $endDate");
-    setRxRequestStatus(Status.LOADING);
-
-    await loginPreference.getServiceId().then((value) => {
-      serviceId = value.setviceId
-    });
-    print("service sample  $serviceId");
-    await _api.getSampleListData(startDate, endDate, statusId, page, serviceId).then((value) {
-      setRxRequestStatus(Status.SUCCESS);
-      setSampleList(value);
-    }).onError((error, stackTrace){
-      setRxRequestStatus(Status.ERROR);
-      setError(error.toString());
-      print("viewModel error ${error.toString()}");
-    });
-  }*/
-
 
 
 

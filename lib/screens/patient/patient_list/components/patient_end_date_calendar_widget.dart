@@ -34,7 +34,7 @@ class _PatientEndDateCalendarWidgetState extends State<PatientEndDateCalendarWid
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
 
-          Text('${patientListVM.endDate}',style: TextStyle(fontSize: 16)),
+          Text('${patientListVM.endDate ?? "Select start date"}',style: TextStyle(fontSize: 16)),
 
           InkWell(
               onTap: () async{

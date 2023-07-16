@@ -44,20 +44,17 @@ class SummeryDetailsViewModel extends GetxController{
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value;
 
-  void setTableRowDesign(TableRowDesignModel _value) =>
-      tableRowDesignListItem.value = _value;
+  void setTableRowDesign(TableRowDesignModel _value) => tableRowDesignListItem.value = _value;
 
   void setError(String _value) => error.value = _value;
 
 
 
   /// get table row design item
-   Future<TableRowDesignModel> getTableRowDesignItem(serviceId, itemId, groupItemItes) async {
-     print("groupItem id $groupItemItes");
-    print("test 1 service id $serviceId");
-    print("test 2 item id $itemId");
+   Future<TableRowDesignModel> getTableRowDesignItem(serviceId, itemId, groupItemId) async {
+     print('call table row design vm ');
     setRxRequestStatus(Status.LOADING);
-    await _api.getTableRowDesignItem(serviceId, itemId,groupItemItes).then((value) {
+    await _api.getTableRowDesignItem(serviceId, itemId,groupItemId).then((value) {
       setRxRequestStatus(Status.SUCCESS);
       setTableRowDesign(value);
 
@@ -70,11 +67,26 @@ class SummeryDetailsViewModel extends GetxController{
     return tableRowDesignListItem.value;
   }
 
+  /// get table row design item
+  Future<TableRowDesignModel> getTableKeyPairItem(serviceId, groupItemId) async {
+    print('call table row design vm ');
+    setRxRequestStatus(Status.LOADING);
+    await _api.getTableKeyPairItem(serviceId, groupItemId).then((value) {
+      setRxRequestStatus(Status.SUCCESS);
+      setTableRowDesign(value);
+
+      //  return value;
+    }).onError((error, stackTrace) {
+      setRxRequestStatus(Status.ERROR);
+      setError(error.toString());
+      print("viewModel error ${error.toString()}");
+    });
+    return tableRowDesignListItem.value;
+  }
+
 
   /// operation Schedule status
   Future<void> saveEditLabReportResult({dynamic result, dynamic id}) async {
-    print("------------------------vm entery result-------------------");
-    print(result);
 
     await _repository.saveEditLabReportResult(result).then((value) {
       print("------------------------vm show result-------------------");

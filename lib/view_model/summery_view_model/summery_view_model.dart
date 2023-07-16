@@ -43,6 +43,7 @@ class SummeryViewModel extends GetxController {
   RxInt labTestSuggId = 0.obs;
   RxString scannBarCode = ''.obs;
   RxString statusName = 'All'.obs;
+  RxInt serviceId = 0.obs;
 
 
 
@@ -55,21 +56,25 @@ class SummeryViewModel extends GetxController {
         dynamic labTestSuggNameId = null,
         String invoiceNum = '',
       bool isRefreshed = true,
+
       }) async {
-    // ServiceIdModel? service = await loginPreference.getServiceId();
+     ServiceIdModel? service = await loginPreference.getServiceId();
+
     print("----------------------------11111111111111-> status id 11111111111111111------------------------>");
-    print(labStatus);
+    print(service.setviceId);
     print("lab name sugge Id vm121231----- $invoiceNum");
+     //serviceId = service.setviceId;
 
     if (isRefreshed == true) {
       pageNumber.value = 1;
        categoryId.value = labStatus;
+
      // labTestSuggId.value = labTestSuggNameId;
       hasReachedMax.value = false;
 
       await _api
           .getSummeryListData(
-              startDate, endDate, categoryId.value, pageNumber.value, 0, labTestSuggNameId, invoiceNum)
+              startDate, endDate, categoryId.value, pageNumber.value, service.setviceId ?? 0, labTestSuggNameId, invoiceNum)
           .then((value) {
         setRxRequestStatus(Status.SUCCESS);
         setSummeryList(value);
@@ -94,7 +99,7 @@ class SummeryViewModel extends GetxController {
 
         await _api
             .getSummeryListData(
-                startDate, endDate, categoryId.value, pageNumber.value, 0, labTestSuggNameId, invoiceNum)
+                startDate, endDate, categoryId.value, pageNumber.value, service.setviceId ?? 0, labTestSuggNameId, invoiceNum)
             .then((value) {
           setRxRequestStatus(Status.SUCCESS);
           setSummeryList(value);

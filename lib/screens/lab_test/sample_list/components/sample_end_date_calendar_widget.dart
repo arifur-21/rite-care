@@ -51,7 +51,8 @@ class _SampleEndDateCalendarWidgetState extends State<SampleEndDateCalendarWidge
                   print(formattedDate); //formatted date output using intl package =>  2022-07-04
                   //You can format date as per your need
                   setState(() {
-                    sampleListVM.endDate = formattedDate!;//set foratted date to TextField value.
+                    sampleListVM.endDate = formattedDate!;
+                    sampleListVM.getSampleListData();//set foratted date to TextField value.
                     print("end date ${sampleListVM.endDate}");
                   });
 

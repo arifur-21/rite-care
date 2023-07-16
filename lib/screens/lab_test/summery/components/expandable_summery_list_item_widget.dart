@@ -381,7 +381,7 @@ class _ExpandableSummeryListItemState extends State<ExpandableSummeryListItem> {
                                               image: DecorationImage(
                                                   fit: BoxFit.cover,
                                                   image: AssetImage(
-                                                      'assets/icons/check.png')),
+                                                      'assets/icons/okay.png')),
                                             ),
                                           ),
                                         ),
@@ -702,7 +702,7 @@ class _ExpandableSummeryListItemState extends State<ExpandableSummeryListItem> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Are you approve the test report?"),
+                    const Text("Are you approved the test report?"),
                     const SizedBox(
                       height: 10,
                     ),
@@ -730,7 +730,7 @@ class _ExpandableSummeryListItemState extends State<ExpandableSummeryListItem> {
                         patientServices.signApprovedDate = currentDateTime;
                         approvedVM.postApprovedApiData(data: patientServices);
                       });
-
+                      summeryVM.getSummeryListData(isRefreshed: true);
                       Navigator.pop(context);
                     },
                     child: const Padding(
@@ -814,11 +814,12 @@ class _ExpandableSummeryListItemState extends State<ExpandableSummeryListItem> {
                           "pinvoice":
                               jsonDecode(jsonEncode(widget.summeryListItem))
                         };
-
                         markeasDeleveredVM.postMarkeAsDelevered(data: data);
-                        // summeryVM.getSummeryListData();
-                        Navigator.pop(context);
+
+
                       });
+                      summeryVM.getSummeryListData(isRefreshed: true);
+                      Navigator.pop(context);
                     },
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),
@@ -883,8 +884,10 @@ class _ExpandableSummeryListItemState extends State<ExpandableSummeryListItem> {
                             jsonDecode(jsonEncode(widget.summeryListItem));
 
                         markeAsPrintedVM.postMarkAsPrintedDAta(data: data);
-                        Navigator.pop(context);
+
                       });
+                      summeryVM.getSummeryListData(isRefreshed: true);
+                      Navigator.pop(context);
                     },
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),

@@ -36,14 +36,14 @@ class SearchRepository {
 
   //get sample list data
   Future<SummeryModel> getSampleListData(
-      startDate, endDate, statusId, page, serviceId, labTestName, invoiceNum ) async {
+      startDate, endDate, statusId, page, serviceId, invoiceNum, sampleId ) async {
     print("------------------> date <----------------------");
     print(statusId);
     print(startDate);
     print(endDate);
     print("test sample  sugges ");
     dynamic response = await _apiServices.getApiData(
-        '/Item/GetInvoiceSampleIDByMedicalType?id=$serviceId&statusid=$statusId&medicalTypeID=62&DateStart=$startDate&DateEnd=$endDate&pageNumber=$page&pageSize=25&invoiceId=$invoiceNum&sampleId=$labTestName');
+        '/Item/GetInvoiceSampleIDByMedicalType?id=$serviceId&statusid=$statusId&medicalTypeID=62&DateStart=$startDate&DateEnd=$endDate&pageNumber=$page&pageSize=25&invoiceId=$invoiceNum&sampleId=$sampleId');
     return SummeryModel.fromJson(response);
   }
 

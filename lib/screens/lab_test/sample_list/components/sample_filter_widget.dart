@@ -75,6 +75,7 @@ class _SampleListFilterWidgetState extends State<SampleListFilterWidget> {
                   InkWell(
                     onTap: () {
                       setState(() {
+                        print("item length ${sampleVM.items.length}");
                         isCancel = true;
                         _showDialog();
                       });
@@ -105,25 +106,27 @@ class _SampleListFilterWidgetState extends State<SampleListFilterWidget> {
                           SizedBox(width: 10,),
                           Text("Filter", style: Styles.poppinsFont14_600),
                           SizedBox(width: 10,),
+
                           Visibility(
                               visible: isCancel,
                               child: InkWell(
                                   onTap: (){
                                     setState(() {
-
                                         sampleVM.startDate =  DateFormat("yyyy-MM-dd").format(DateTime.now());
                                         sampleVM.endDate =  DateFormat("yyyy-MM-dd").format(DateTime.now());
                                         sampleVM.getSampleListData();
                                         sampleVM.statusName.value = "All";
                                         isCancel = false;
-
                                         loginPreference.removeServiceId();
                                         sampleVM.invoNumController.value.clear();
+                                        sampleVM.sampleIdController.value.clear();
 
                                     });
 
                                   },
                                   child: Image.asset('assets/images/delete.png', height: 50,))),
+
+
 
                         ],
                       ),
@@ -283,7 +286,7 @@ class _SampleListFilterWidgetState extends State<SampleListFilterWidget> {
                     height: 40,
                     child: TextFormField(
                       onChanged: (value){
-                      //  sampleVM.getSampleListData(invoiceNum: value);
+                        sampleVM.getSampleListData(sampleId: value);
                       },
                       controller: sampleVM.sampleIdController.value,
                       keyboardType: TextInputType.text,
@@ -324,7 +327,7 @@ class _SampleListFilterWidgetState extends State<SampleListFilterWidget> {
                               onChanged: (value){
                                 sampleVM.getSampleListData(invoiceNum: value);
                               },
-                              controller: sampleVM.invoNumController.value..text = sampleVM.scannBarCode.value,
+                              controller: sampleVM.invoNumController.value,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 label: Text("Inv.NO"),

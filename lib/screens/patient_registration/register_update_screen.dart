@@ -45,6 +45,14 @@ class RegistrationUpdateScreen extends StatefulWidget {
   String? emergencyName;
   dynamic lastName;
   dynamic servicerId;
+  dynamic rankId;
+  dynamic unitId;
+  dynamic relationId;
+  dynamic prefixId;
+  dynamic statusId;
+  dynamic genderId;
+  dynamic bloodGroupId;
+  dynamic bloodGgroupName;
 
   RegistrationUpdateScreen(
       {this.officalNo,
@@ -70,7 +78,15 @@ class RegistrationUpdateScreen extends StatefulWidget {
       this.city,
       this.street,
       this.emergencyName,
-      this.servicerId});
+      this.servicerId,
+      this.rankId,
+      this.unitId,
+      this.genderId,
+      this.prefixId,
+      this.bloodGroupId,
+      this.relationId,
+      this.statusId,
+      this.bloodGgroupName});
 
   @override
   State<RegistrationUpdateScreen> createState() =>
@@ -134,8 +150,11 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
   bool isRelation = false;
   bool isServiceType = false;
 
+
   dynamic inputServiceId;
   dynamic resServiceId;
+
+  TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
@@ -143,13 +162,12 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
 
     updateRegisterVM.update_officalNOController.value.text = widget.officalNo;
     registerVM.rankController.value.text = widget.rank!;
-    registerVM.uniController.value.text = "dfsf";
     updateRegisterVM.update_firstNameController.value.text = widget.firstName;
     updateRegisterVM.update_phoneNumberController.value.text = widget.phone;
     updateRegisterVM.update_emailController.value.text = widget.email;
     updateRegisterVM.update_nationalIdController.value.text =
         widget.nationalId!;
-    updateRegisterVM.update_streetController.value.text = widget.street;
+    updateRegisterVM.update_streetController.value.text = widget.street ??"";
     updateRegisterVM.update_cityController.value.text = widget.city;
     updateRegisterVM.update_lastNameController.value.text =
         widget.lastName.toString();
@@ -163,21 +181,34 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
     selectPatientStatus = widget.patientStatus;
     selectPatientRelation = widget.patientRelation;
     selectPatientFrefix = widget.patientPrefix;
-    rankName = "dfdsf11";
-    unitName = widget.unit;
+   /// rankName = "dfdsf11";
+       unitName = widget.unit;
+      isRetireds = widget.isRetired??false;
+      dateOfBirth = widget.dob??"";
+      relationId = widget.relationId;
+      patientPrefixId = widget.prefixId;
+      patientStatusId = widget.statusId;
+      rankId = widget.rankId;
+      unitId = widget.unitId;
+      genderId = widget.genderId;
+      bloodGroupId = widget.bloodGroupId;
+      bloodGroupName = widget.bloodGgroupName;
+      patinetRelationId = widget.relationId;
 
-    //  isRetireds = widget.isRetired;
-    //dateOfTiemConterter(widget.dob);
+
+
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("patient prefix ${widget.patientPrefix}");
-    print("rank ${widget.emergencyRelation}");
+    print("reigster update ----------------------???");
+    print("patient prefix id ${prefixId}");
+    print("relation ${relationId}");
     rankName = widget.rank;
-    print("rank name ${widget.isRetired}");
+    print("blood group id ${bloodGroupId}");
+    print("blood group name ${bloodGroupName}");
     return Scaffold(
       drawer: Drawer(
         child: DrawerWidget(),
@@ -325,7 +356,7 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                         height: 4,
                       ),
                       patientPrefix(),
-                      SizedBox(
+                    /*  SizedBox(
                         height: 15,
                       ),
                       Row(
@@ -343,7 +374,7 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                       SizedBox(
                         height: 4,
                       ),
-                      patientStatusWidget(),
+                      patientStatusWidget(),*/
                       SizedBox(
                         height: 15,
                       ),
@@ -378,8 +409,7 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                                     ),
                                   ),
 
-
-                                  controller: textEditingController..text = widget.rank!,
+                                  controller: textEditingController..text = rankName,
                                   focusNode: focusNode,
                                   onSubmitted: (String value) {
 
@@ -483,11 +513,13 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                   ),
-                                  controller: _searchController..text = widget.unit!,
+
+                                  controller: _searchController..text = unitName ??"",
                                   focusNode: focusNode,
                                   onSubmitted: (String value) {},
                                 );
                               },
+
                               optionsViewBuilder: (BuildContext context,
                                   Function onSelect,
                                   Iterable<RankModel> dataList) {
@@ -648,10 +680,11 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                   )),
               RoundedButton(
                   width: Get.width * 0.4,
-                  title: "Register",
+                  title: "Update",
                   color: Styles.primaryColor,
                   onTap: () {
-                    print("status  ${selectPatientStatus}");
+                    print("prefix id?? ${prefixId}");
+                    print("blood id?? ${bloodGroupId}");
                     if (_formKey.currentState!.validate()) {
                       updateRegisterVM.patientRegistrationUpdate(
                           serviceId: widget.servicerId,
@@ -667,12 +700,13 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                           bloodGroupName: bloodGroupName,
                           patientPrefixName: patientPrefixName,
                           patientRelationName: patientRelationName,
-                          patientStatusName: patientRelationName,
+                          patientStatusName: patientStatusName,
                           rankId: rankId,
                           rankName: rankName,
                           unitId: unitId,
                           unitName: unitName);
                     }
+                    Navigator.pop(context);
                   })
             ],
           ),
@@ -680,6 +714,7 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
       ),
     );
   }
+
 
   Widget bloodGroupWidget() {
     return Container(
@@ -704,7 +739,7 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                     children: [
                       Text(
                         selectBloodGroup,
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(color: Styles.primaryColor),
                       ),
                       Icon(
                         isOpen
@@ -726,59 +761,59 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                   shrinkWrap: true,
                   children: bloodGroupList
                       .map((e) => Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                  top: BorderSide(
-                                      width: 0.7, color: Colors.grey)),
-                              color: selectBloodGroup == e
-                                  ? Styles.primaryColor
-                                  : Colors.white,
-                            ),
-                            child: InkWell(
-                                onTap: () {
-                                  selectBloodGroup = e.toString();
-                                  print(selectBloodGroup);
-                                  print(e.toString());
-                                  isOpen = false;
-                                  setState(() {
-                                    if (selectBloodGroup ==
-                                        "Select Blood Group") {
-                                      bloodGroupId = '';
-                                    } else if (e == "A(+VE)") {
-                                      bloodGroupId = 1;
-                                    } else if (e == "A(-VE)") {
-                                      bloodGroupId = 2;
-                                    } else if (e == "B(+VE)") {
-                                      bloodGroupId = 3;
-                                    } else if (e == "B(-VE)") {
-                                      bloodGroupId = 4;
-                                    } else if (e == "O(+VE)") {
-                                      bloodGroupId = 5;
-                                    } else if (e == "O(-VE)") {
-                                      bloodGroupId = 6;
-                                    } else if (e == "Ab(+VE)") {
-                                      bloodGroupId = 7;
-                                    } else if (e == "Ab(-VE)") {
-                                      bloodGroupId = 8;
-                                    }
-                                    //  print("blood ${bloodGroup}");
-                                    print(" id ${e}");
-                                    bloodGroupName = e;
-                                  });
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12),
-                                  child: Text(
-                                    e.toString(),
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: selectBloodGroup == e
-                                            ? Colors.white
-                                            : Styles.drawerListColor),
-                                  ),
-                                )),
-                          ))
+                    decoration: BoxDecoration(
+                      border: Border(
+                          top: BorderSide(
+                              width: 0.7, color: Colors.grey)),
+                      color: selectBloodGroup == e
+                          ? Styles.primaryColor
+                          : Colors.white,
+                    ),
+                    child: InkWell(
+                        onTap: () {
+                          selectBloodGroup = e.toString();
+                          print(selectBloodGroup);
+                          print(e.toString());
+                          isOpen = false;
+                          setState(() {
+                            if (selectBloodGroup ==
+                                "Select Blood Group") {
+                              bloodGroupId = '';
+                            } else if (e == "A(+VE)") {
+                              bloodGroupId = 1;
+                            } else if (e == "A(-VE)") {
+                              bloodGroupId = 2;
+                            } else if (e == "B(+VE)") {
+                              bloodGroupId = 3;
+                            } else if (e == "B(-VE)") {
+                              bloodGroupId = 4;
+                            } else if (e == "O(+VE)") {
+                              bloodGroupId = 5;
+                            } else if (e == "O(-VE)") {
+                              bloodGroupId = 6;
+                            } else if (e == "Ab(+VE)") {
+                              bloodGroupId = 7;
+                            } else if (e == "Ab(-VE)") {
+                              bloodGroupId = 8;
+                            }
+                            //  print("blood ${bloodGroup}");
+                            print(" id ${e}");
+                            bloodGroupName = e;
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Text(
+                            e.toString(),
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: selectBloodGroup == e
+                                    ? Colors.white
+                                    : Styles.drawerListColor),
+                          ),
+                        )),
+                  ))
                       .toList(),
                 ),
               ),
@@ -810,8 +845,8 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        selectGender!,
-                        style: TextStyle(fontSize: 16),
+                        selectGender??"",
+                        style: TextStyle(color: Styles.primaryColor),
                       ),
                       Icon(
                         isGender
@@ -833,44 +868,45 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                   shrinkWrap: true,
                   children: genderList
                       .map((e) => Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                  top: BorderSide(
-                                      width: 0.7, color: Colors.grey)),
-                              color: selectGender == e
-                                  ? Styles.primaryColor
-                                  : Colors.white,
-                            ),
-                            child: InkWell(
-                                onTap: () {
-                                  selectGender = e.toString();
-                                  isGender = false;
-                                  setState(() {
-                                    //'Male', 'Female', 'Third Gender'
-                                    if (e == "Male") {
-                                      genderId = 1;
-                                    } else if (e == "Female") {
-                                      genderId = 2;
-                                    } else if (e == "Third Gender") {
-                                      genderId = 3;
-                                    }
-                                  });
-                                  print("genderId ${genderId}");
-                                  genderName = e;
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12),
-                                  child: Text(
-                                    e.toString(),
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: selectGender == e
-                                            ? Colors.white
-                                            : Styles.drawerListColor),
-                                  ),
-                                )),
-                          ))
+                    decoration: BoxDecoration(
+                      border: Border(
+                          top: BorderSide(
+                              width: 0.7, color: Colors.grey)),
+                      color: selectGender == e
+                          ? Styles.primaryColor
+                          : Colors.white,
+                    ),
+                    child: InkWell(
+                        onTap: () {
+                          selectGender = e.toString();
+                          isGender = false;
+                          setState(() {
+                            //'Male', 'Female', 'Third Gender'
+                            if (e == "Male") {
+                              genderId = 1;
+                            } else if (e == "Female") {
+                              genderId = 2;
+                            } else if (e == "Third Gender") {
+                              genderId = 3;
+                            }
+                          });
+                          print("genderId ${genderId}");
+                          genderName = e;
+                          print("gender ${genderName}");
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Text(
+                            e.toString(),
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: selectGender == e
+                                    ? Colors.white
+                                    : Styles.drawerListColor),
+                          ),
+                        )),
+                  ))
                       .toList(),
                 ),
               ),
@@ -903,8 +939,8 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        selectServiceType!,
-                        style: TextStyle(fontSize: 16),
+                        selectServiceType ??"",
+                        style: TextStyle(color: Styles.primaryColor),
                       ),
                       Icon(
                         isServiceType
@@ -925,36 +961,36 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                 shrinkWrap: true,
                 children: serviceTypeList
                     .map((e) => e == null
-                        ? CircularProgressIndicator()
-                        : Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                  top: BorderSide(
-                                      width: 0.7, color: Colors.grey)),
+                    ? CircularProgressIndicator()
+                    : Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                        top: BorderSide(
+                            width: 0.7, color: Colors.grey)),
+                    color: selectServiceType == e
+                        ? Styles.primaryColor
+                        : Colors.white,
+                  ),
+                  child: InkWell(
+                      onTap: () {
+                        selectServiceType = e.toString();
+                        print(selectServiceType);
+                        isServiceType = false;
+                        setState(() {});
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Text(
+                          e.toString(),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
                               color: selectServiceType == e
-                                  ? Styles.primaryColor
-                                  : Colors.white,
-                            ),
-                            child: InkWell(
-                                onTap: () {
-                                  selectServiceType = e.toString();
-                                  print(selectServiceType);
-                                  isServiceType = false;
-                                  setState(() {});
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12),
-                                  child: Text(
-                                    e.toString(),
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: selectServiceType == e
-                                            ? Colors.white
-                                            : Styles.drawerListColor),
-                                  ),
-                                )),
-                          ))
+                                  ? Colors.white
+                                  : Styles.drawerListColor),
+                        ),
+                      )),
+                ))
                     .toList(),
               ),
             ),
@@ -986,8 +1022,8 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        selectPatientFrefix ?? '',
-                        style: TextStyle(fontSize: 16),
+                        selectPatientFrefix ?? "",
+                        style: TextStyle(color: Styles.primaryColor),
                       ),
                       Icon(
                         isPrefix
@@ -1030,7 +1066,7 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                                         top: BorderSide(
                                             width: 0.7, color: Colors.grey)),
                                     color: selectPatientFrefix ==
-                                            snapshot.data![index]?["Name"]
+                                        snapshot.data![index]?["Name"]
                                         ? Styles.primaryColor
                                         : Colors.white,
                                   ),
@@ -1039,18 +1075,18 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                                     child: InkWell(
                                         onTap: () {
                                           selectPatientFrefix =
-                                              snapshot.data![index]?["Name"];
+                                          snapshot.data![index]?["Name"];
                                           patientPrefixId =
-                                              snapshot.data![index]?["Id"];
+                                          snapshot.data![index]?["Id"];
                                           print("id1 ${patientPrefixId}");
                                           print(
                                               "name123 ${selectPatientFrefix}");
                                           isPrefix = false;
                                           setState(() {
                                             patientPrefixId =
-                                                snapshot.data![index]?["Id"];
+                                            snapshot.data![index]?["Id"];
                                             patientPrefixName =
-                                                snapshot.data![index]?["Name"];
+                                            snapshot.data![index]?["Name"];
                                           });
                                         },
                                         child: Text(
@@ -1059,8 +1095,8 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
                                                 color: selectPatientFrefix ==
-                                                        snapshot.data![index]
-                                                            ?["Name"]
+                                                    snapshot.data![index]
+                                                    ?["Name"]
                                                     ? Colors.white
                                                     : Styles.drawerListColor))),
                                   ),
@@ -1092,7 +1128,8 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                 height: 60,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(width: 2, color: Styles.primaryColor)),
+                    border:
+                    Border.all(width: 2, color: Styles.primaryColor)),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -1100,7 +1137,7 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                     children: [
                       Text(
                         selectPatientStatus!,
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(color: Styles.primaryColor),
                       ),
                       Icon(
                         isStutus
@@ -1144,7 +1181,7 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                                         top: BorderSide(
                                             width: 0.7, color: Colors.grey)),
                                     color: selectPatientStatus ==
-                                            snapshot.data![index]?["Name"]
+                                        snapshot.data![index]?["Name"]
                                         ? Styles.primaryColor
                                         : Colors.white,
                                   ),
@@ -1152,14 +1189,11 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                                     padding: const EdgeInsets.all(12),
                                     child: InkWell(
                                         onTap: () {
-                                          selectPatientStatus =
-                                              snapshot.data![index]?["Name"];
+                                          selectPatientStatus = snapshot.data![index]?["Name"];
                                           isStutus = false;
                                           setState(() {
-                                            patientStatusId =
-                                                snapshot.data![index]?["Id"];
-                                            patientStatusName =
-                                                snapshot.data![index]?["Name"];
+                                            patientStatusId = snapshot.data![index]?["Id"];
+                                            patientStatusName = snapshot.data![index]?["Name"];
                                             print("Id $patientStatusId");
                                           });
                                         },
@@ -1169,10 +1203,11 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
                                                 color: selectPatientStatus ==
-                                                        snapshot.data![index]
-                                                            ?["Name"]
+                                                    snapshot.data![index]
+                                                    ?["Name"]
                                                     ? Colors.white
-                                                    : Styles.drawerListColor))),
+                                                    : Styles
+                                                    .drawerListColor))),
                                   ),
                                 ),
                               );
@@ -1196,6 +1231,8 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                 isRelation = !isRelation;
                 registerVM.getPatientRelation();
               });
+
+
             },
             child: Container(
                 width: double.infinity,
@@ -1210,7 +1247,7 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                     children: [
                       Text(
                         selectPatientRelation!,
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(color: Styles.primaryColor),
                       ),
                       Icon(
                         isRelation
@@ -1254,7 +1291,7 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                                         top: BorderSide(
                                             width: 0.7, color: Colors.grey)),
                                     color: selectPatientRelation ==
-                                            snapshot.data![index]?["Name"]
+                                        snapshot.data![index]?["Name"]
                                         ? Styles.primaryColor
                                         : Colors.white,
                                   ),
@@ -1263,13 +1300,13 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                                     child: InkWell(
                                         onTap: () {
                                           selectPatientRelation =
-                                              snapshot.data![index]?["Name"];
+                                          snapshot.data![index]?["Name"];
                                           isRelation = false;
                                           setState(() {
                                             patinetRelationId =
-                                                snapshot.data![index]?["Id"];
+                                            snapshot.data![index]?["Id"];
                                             patientRelationName =
-                                                snapshot.data![index]?["Name"];
+                                            snapshot.data![index]?["Name"];
                                             print("Id $patinetRelationId");
                                           });
                                         },
@@ -1279,8 +1316,8 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
                                                 color: selectPatientRelation ==
-                                                        snapshot.data![index]
-                                                            ?["Name"]
+                                                    snapshot.data![index]
+                                                    ?["Name"]
                                                     ? Colors.white
                                                     : Styles.drawerListColor))),
                                   ),
@@ -1295,7 +1332,6 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
       ),
     );
   }
-
   Widget DateOfBrithWidget() {
     return Container(
       padding: EdgeInsets.all(6),
@@ -1306,7 +1342,7 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Date of Birth  ${ DateFormat('dd-MM-yyyy').format(DateTimeConverter.dateOfTiemConterter(widget.dob.toString()))}', style: TextStyle(fontSize: 16)),
+          Text('Date of Birth  ${(dateOfBirth == null || dateOfBirth == '')? " " : dateOfBirth}', style: TextStyle(fontSize: 16)),
           InkWell(
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(
@@ -1320,17 +1356,20 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
                 if (pickedDate != null) {
                   print(
                       pickedDate); //get the picked date in the format => 2022-07-04 00:00:00.000
-                  String formattedDate = DateFormat('yyyy-MM-dd').format(
+                  String formattedDate = DateFormat('dd-MM-yyyy').format(
                       pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
                   print(
                       formattedDate); //formatted date output using intl package =>  2022-07-04
                   //You can format date as per your need
 
+
                   setState(() {
                     dateOfBirth =
                         formattedDate; //set foratted date to TextField value.
-                    print("${dateOfBirth}");
+                    print("aaa${dateOfBirth}");
                   });
+
+
                 } else {
                   print("Date is not selected");
                 }
@@ -1467,27 +1506,12 @@ class _RegistrationUpdateScreenState extends State<RegistrationUpdateScreen> {
         ]);
     if (croppedFile != null) {
       imageCache.clear();
-      setState(() {
+
         imageFile = File(croppedFile.path);
         print("object ${imageFile}");
-      });
       // reload();
     }
   }
 
-  void dateOfTiemConterter(dynamic dob) {
-    dynamic dobs = "";
-    dobs = dob;
-    dynamic unixTimestamp = dobs;
-    int timestampInMilliseconds = int.parse(
-        unixTimestamp.replaceAll(RegExp(r'[^0-9]'), '') ??
-            "00:00"); // extract the numeric value from the string
-    dateTime = DateTime.fromMillisecondsSinceEpoch(timestampInMilliseconds);
 
-    if (dateTime == null) {
-      return;
-    } else {
-      return dateTime;
-    }
-  }
 }

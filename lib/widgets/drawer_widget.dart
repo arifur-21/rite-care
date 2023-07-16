@@ -116,7 +116,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                        // Get.toNamed(RoutesName.patientInfoScreen);
                       },
                       image: 'assets/icons/file.png'),
-
+                  Divider(height: 2,color: Colors.grey,),
+                  SizedBox(height: 5,),
                   _drawerSublistWidget(
                       subTitle: "Patient List",
                       onTap: (){
@@ -200,7 +201,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       },
                       image: 'assets/icons/labtestlist.png'),
                   SizedBox(height: 5,),
-                  Divider(height: 2,color: Colors.grey,),
+                 // Divider(height: 2,color: Colors.grey,),
                   SizedBox(height: 5,),
 
                 /*  _drawerSublistWidget(

@@ -83,7 +83,6 @@ class _SampleListState extends State<SampleList> {
         ],
       ),
       body: RefreshIndicator(
-
         onRefresh: () async {
         await  sampleListVM.getSampleListData(isRefreshed: true);
         },
@@ -160,7 +159,7 @@ class _SampleListState extends State<SampleList> {
                                     dobs = sampleListVM.items[index].invoiceDate;
                                     statusId = sampleListVM.items[index].labStatusId;
 
-                                   /* List<int>? listOfStatusId = sampleListVM
+                                    List<int>? listOfStatusId = sampleListVM
                                         .items[index].patientServices
                                         ?.map((e) =>
                                         int.parse(e.labStatusId.toString()))
@@ -185,7 +184,7 @@ class _SampleListState extends State<SampleList> {
                                         ?.map((element) {
                                       return int.parse(
                                           element.labStatusId.toString());
-                                    }).toList());*/
+                                    }).toList());
 
                                     //print("demo1 ${summeryVM.items?[index].patientServices![0].item?.name}");
 
@@ -257,7 +256,7 @@ class _SampleListState extends State<SampleList> {
                                                 MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Text(
-                                                      DateFormat('dd-MM-yyyy HH:mm ')
+                                                      DateFormat('dd-MM-yyyy HH:mm a ')
                                                           .format(DateTimeConverter
                                                           .dateOfTiemConterter(
                                                           dobs)),

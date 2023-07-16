@@ -74,13 +74,7 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                               itemCount: searchVM.patientListItem.value.length,
                               itemBuilder: (context, index){
 
-                               if(searchVM.patientListItem[index].serviceTypeId == 0){
-                                 serviceType = "Uniform";
-                               }else if(searchVM.patientListItem[index].serviceTypeId == 1){
-                                 serviceType = "RE";
-                               }else{
-                                 serviceType = "CNE";
-                               }
+
                                 return InkWell(
                                   onTap: (){
                                     ServiceIdModel serviceIdModel = ServiceIdModel(
@@ -114,14 +108,23 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                                       nationalId: searchVM.patientListItem[index].nationalId,
                                     //  patientOldId: searchVM.patientListItem[index].pat?.name,
                                       lastName: searchVM.patientListItem[index].lastName,
-                                      serviceType: serviceType,
+                                      serviceType: searchVM.patientListItem[index].serviceTypeId,
+                                      isRetired: searchVM.patientListItem[index].isRetired,
+                                      rankId:  searchVM.patientListItem[index].rankId,
+                                      unitId:  searchVM.patientListItem[index].unitId,
+                                      statusId: searchVM.patientListItem[index].patientStatusId,
+                                      prefixId: searchVM.patientListItem[index].patientPrefixId,
+                                      relationId: searchVM.patientListItem[index].relationshipId,
+                                      genderId: searchVM.patientListItem[index].genderId,
+                                      bloodGroupId: searchVM.patientListItem[index].bloodGroupId,
+
 
                                     );
                                     final box = Boxes.getData();
                                     box.put("id", data);
                                     data.save();
                                     print("hive ${box.length}");
-                                    print("servicer type $serviceType");
+
 
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=> PatientInfoScreen()));
 

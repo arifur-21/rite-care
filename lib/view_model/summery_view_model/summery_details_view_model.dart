@@ -87,8 +87,6 @@ class SummeryDetailsViewModel extends GetxController{
 
   /// operation Schedule status
   Future<void> saveEditLabReportResult({dynamic result, dynamic id}) async {
-    print("------------------------vm entery result-------------------");
-    print(result);
 
     await _repository.saveEditLabReportResult(result).then((value) {
       print("------------------------vm show result-------------------");

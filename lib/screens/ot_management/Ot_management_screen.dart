@@ -43,10 +43,7 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
 
   @override
   void initState() {
-    setState(() {
-      otListVM.getSchedule();
-    });
-
+  otListVM.getSchedule();
     super.initState();
   }
 
@@ -77,62 +74,69 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
                 titleText: "Patient",
                 tralingText: "Status"),
             Expanded(
-              child: Obx(() {
-                switch (otListVM.rxRequestStatus.value) {
-                  case Status.LOADING:
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
+              child: FutureBuilder(
+                future:
+                otListVM.getSchedule() ,
+                  builder: (context, index){
+                return Obx(() {
+                  switch (otListVM.rxRequestStatus.value) {
+                    case Status.LOADING:
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
 
-                  case Status.ERROR:
-
-                    return Center(
-                        child: Text(otListVM.error.value.toString()));
-
-                  case Status.SUCCESS:
-                    if (otListVM.otScheduleList.value.items?.length ==
-                        0 ||
-                        otListVM.otScheduleList.value.items?.length ==
-                            "" ||
-                        otListVM.otScheduleList.value.items?.length ==
-                            null) {
+                    case Status.ERROR:
 
                       return Center(
-                          child:
-                          Text("Item not found, Please select date"));
-                    } else {
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount:
-                          otListVM.otScheduleList.value.items?.length,
-                          itemBuilder: (context, index) {
+                          child: Text(otListVM.error.value.toString()));
 
-                            return otListWidget(
-                                title: otListVM.otScheduleList.value
-                                    .items?[index]?.item?.name,
-                                name: otListVM.otScheduleList.value
-                                    .items?[index]?.patient?.firstName,
-                                lastName: otListVM.otScheduleList.value
-                                    .items?[index]?.patient?.lastName,
-                                status: otListVM.otScheduleList.value
-                                    .items?[index]?.surgeryStatus?.name,
-                                surgeryType: otListVM.otScheduleList.value
-                                    .items?[index]?.surgeryType?.name,
-                                indexNum: index,
-                                noteId: otListVM.otScheduleList.value
-                                    .items?[index]?.id,
-                                statusId: otListVM.otScheduleList.value
-                                    .items?[index].surgeryStatusId,
-                                surgery: otListVM
-                                    .otScheduleList.value.items![index],
-                                otScheduleModel:
-                                otListVM.otScheduleList.value,
-                                surgeryNotes: otListVM.otScheduleList
-                                    .value.items![index].surgeryNotes);
-                          });
-                    }
-                }
+                    case Status.SUCCESS:
+                      if (otListVM.otScheduleList.value.items?.length ==
+                          0 ||
+                          otListVM.otScheduleList.value.items?.length ==
+                              "" ||
+                          otListVM.otScheduleList.value.items?.length ==
+                              null) {
+
+                        return Center(
+                            child:
+                            Text("Item not found, Please select date"));
+                      } else {
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount:
+                            otListVM.otScheduleList.value.items?.length,
+                            itemBuilder: (context, index) {
+
+                              return otListWidget(
+                                  title: otListVM.otScheduleList.value
+                                      .items?[index]?.item?.name,
+                                  name: otListVM.otScheduleList.value
+                                      .items?[index]?.patient?.firstName,
+                                  lastName: otListVM.otScheduleList.value
+                                      .items?[index]?.patient?.lastName,
+                                  status: otListVM.otScheduleList.value
+                                      .items?[index]?.surgeryStatus?.name,
+                                  surgeryType: otListVM.otScheduleList.value
+                                      .items?[index]?.surgeryType?.name,
+                                  indexNum: index,
+                                  noteId: otListVM.otScheduleList.value
+                                      .items?[index]?.id,
+                                  statusId: otListVM.otScheduleList.value
+                                      .items?[index].surgeryStatusId,
+                                  surgery: otListVM
+                                      .otScheduleList.value.items![index],
+                                  otScheduleModel:
+                                  otListVM.otScheduleList.value,
+                                  surgeryNotes: otListVM.otScheduleList
+                                      .value.items![index].surgeryNotes);
+                            });
+                      }
+                  }
+                });
               }),
+
+
             )
           ],
         ),
@@ -179,7 +183,7 @@ class _OtManagementScreenState extends State<OtManagementScreen> {
                     SizedBox(
                       width: 10,
                     ),
-                    Expanded(child: Text("${name + lastName}")),
+                    Expanded(child: Text("$name ${lastName??''}")),
                     SizedBox(
                       width: 10,
                     ),

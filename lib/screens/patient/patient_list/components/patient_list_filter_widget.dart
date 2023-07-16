@@ -117,7 +117,7 @@ class _PatientListFilterWidgetState extends State<PatientListFilterWidget> {
                                     patientList.categoryId.value = 0;
                                     patientList.unitNameId.value = 0;
                                    patientList.getPatientList();
-
+                                    bloodGroupHT = 'All';
                                     isCancel = false;
                                     unitName = '';
                                   });
@@ -186,35 +186,49 @@ class _PatientListFilterWidgetState extends State<PatientListFilterWidget> {
                                                 padding: const EdgeInsets.all(12.0),
                                                 child: InkWell(
                                                     onTap: (){
+                                                      setState((){
+
+
 
                                                       if(e == "All"){
+                                                        bloodGroupHT = 'All';
                                                         bloodStatusId = 0;
                                                       }
                                                       else if(e == "A(+VE)"){
+                                                        bloodGroupHT = "A(+VE)";
                                                         bloodStatusId = 1;
 
                                                       }else if(e == "A(-VE)"){
+                                                        bloodGroupHT = "A(-VE)";
                                                         bloodStatusId = 2;
                                                       } else if(e == "B(+VE)"){
+                                                        bloodGroupHT = "B(+VE)";
                                                         bloodStatusId = 3;
                                                       }else if(e == "B(-VE)"){
+                                                        bloodGroupHT = "B(-VE)";
                                                         bloodStatusId = 4;
                                                       }
                                                       else if(e == "O(+VE)"){
+                                                        bloodGroupHT = "O(+VE)";
                                                         bloodStatusId = 5;
                                                       }else if(e == "O(-VE)"){
+                                                        bloodGroupHT = "O(-VE)";
                                                         bloodStatusId = 6;
                                                       }else if(e == "Ab(+VE)"){
+                                                        bloodGroupHT = "Ab(+VE)";
                                                         bloodStatusId = 7;
                                                       }else if(e == "Ab(-VE)"){
+                                                        bloodGroupHT = "Ab(-VE)";
                                                         bloodStatusId = 8;
 
                                                       }
                                                       patientList.categoryId.value = bloodStatusId;
 
                                                       print("blood ${bloodGroup}");
+                                                    //  bloodGroupHT = bloodGroup;
 
                                                       print(" id ${bloodStatusId}");
+                                                      });
 
                                                     },
                                                     child: Column(
@@ -250,22 +264,9 @@ class _PatientListFilterWidgetState extends State<PatientListFilterWidget> {
                 ),
                 actions: [
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text("Select Start Date", style: TextStyle(),),
-                    ],
-                  ),
-                  SizedBox(height: 5,),
                   PatientStartDateCalendarWidget(),
                   SizedBox(height: 10,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text("Select Start End", style: TextStyle(),),
-                    ],
-                  ),
-                  SizedBox(height: 5,),
+
                   PatientEndDateCalendarWidget(),
                   SizedBox(height: 10,),
 

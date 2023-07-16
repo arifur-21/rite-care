@@ -90,8 +90,7 @@ class _ExpandableItemSubListState extends State<ExpandableItemSubList> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-
-                         // Text("100893", style: Styles.poppinsFontBlack12_600),
+                          Text("${widget.patientServiceList![index].sampleId} ${"-0${index+1}"}"),
 
                           Container(
                               height: 25,
@@ -121,6 +120,7 @@ class _ExpandableItemSubListState extends State<ExpandableItemSubList> {
                                   child: Text("$status", style: Styles.poppinsFont12_600))
 
                           ),
+
                           /*Row(
                             children: [
                               InkWell(

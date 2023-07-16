@@ -96,6 +96,10 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
   @override
   void initState() {
     setState(() {
+      registerVM.firstNameController.value.clear();
+      registerVM.phoneNumberController.value.clear();
+      registerVM.emailController.value.clear();
+      registerVM.officalNOController.value.clear();
       registerVM.getServiceTypeId();
       registerVM.getNumberCheckData();
       //   getPhoneNumber();
@@ -228,60 +232,71 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                             switch (registerVM.rxRequestStatus1.value) {
                               case Status1.SUCCESS:
                                 return Container(
-                                  child: TextFormField(
-                                    onChanged: (value) async {
-                                      await registerVM.getServiceTypeId(
-                                          serviceNumber: value);
+                                  child:    Row(
+                                    children: [
+                                      Container(
+                                        width: Get.width * 0.88,
+                                        child:  TextFormField(
+                                          onChanged: (value) async {
+                                            await registerVM.getServiceTypeId(
+                                                serviceNumber: value);
 
-                                      setState(() {
-                                        inputServiceId = value;
-                                        resServiceId = registerVM
-                                            .serviceTypeIdList
-                                            .value
-                                            .patient
-                                            ?.serviceId;
-                                      });
-                                      if (value ==
-                                          registerVM.serviceTypeIdList.value
-                                              .patient?.serviceId) {
-                                        print("already axist $value");
-                                      }
-                                    },
-                                    controller: shortFormVM
-                                        .short_officalNOController.value,
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      print("$value");
-                                      if (value!.isEmpty || value == null) {
-                                        return "enter your personal/offical number";
-                                      }
+                                            setState(() {
+                                              inputServiceId = value;
+                                              resServiceId = registerVM
+                                                  .serviceTypeIdList
+                                                  .value
+                                                  .patient
+                                                  ?.serviceId;
+                                            });
+                                            if (value ==
+                                                registerVM.serviceTypeIdList.value
+                                                    .patient?.serviceId) {
+                                              print("already axist $value");
+                                            }
+                                          },
+                                          controller: shortFormVM
+                                              .short_officalNOController.value,
+                                          keyboardType: TextInputType.number,
+                                          validator: (value) {
+                                            print("$value");
+                                            if (value!.isEmpty || value == null) {
+                                              return "enter your personal/offical number";
+                                            }
 
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                      label: Text("Personal/offical NO"),
-                                      labelStyle: TextStyle(
-                                          color: Styles.primaryColor,
-                                          fontFamily: 'IstokWeb',
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 17),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(6),
+                                            return null;
+                                          },
+                                          decoration: InputDecoration(
+                                            label: Text("Personal/offical NO"),
+                                            labelStyle: TextStyle(
+                                                color: Styles.primaryColor,
+                                                fontFamily: 'IstokWeb',
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 17),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(6),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Styles.drawerListColor),
+                                              borderRadius: BorderRadius.circular(6),
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Styles.drawerListColor),
+                                              borderRadius: BorderRadius.circular(6),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 2,
-                                            color: Styles.drawerListColor),
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 2,
-                                            color: Styles.drawerListColor),
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                    ),
+                                      SizedBox(width: 6,),
+                                      Text("*", style: TextStyle(fontSize: 20, color: Colors.red),)
+                                    ],
                                   ),
+
+
                                 );
                             }
                           }),
@@ -341,7 +356,7 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                           ),
                           patientPrefix(),
 
-                          SizedBox(
+                          /*SizedBox(
                             height: 15,
                           ),
                           Row(
@@ -359,7 +374,7 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                           SizedBox(
                             height: 4,
                           ),
-                          patientStatusWidget(),
+                          patientStatusWidget(),*/
                           SizedBox(
                             height: 15,
                           ),
@@ -407,7 +422,7 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                                               BorderRadius.circular(6),
                                         ),
                                       ),
-                                      controller: textEditingController..text = registerVM.rank ?? "",
+                                      controller: textEditingController,
                                       focusNode: focusNode,
                                       onSubmitted: (String value) {},
                                     );
@@ -512,8 +527,7 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                                               BorderRadius.circular(6),
                                         ),
                                       ),
-                                      controller: _searchController
-                                        ..text = registerVM.unit ?? "",
+                                      controller: _searchController,
                                       focusNode: focusNode,
                                       onSubmitted: (String value) {},
                                     );
@@ -549,12 +563,23 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                           SizedBox(
                             height: 15,
                           ),
-                          RegisterValidateTextField(
-                            textController:
-                                shortFormVM.short_firstNameController.value,
-                            hintText: "First Name",
-                            errorText: "enter your name",
+
+                          Row(
+                            children: [
+                              Container(
+                                width: Get.width * 0.88,
+                                child:  RegisterValidateTextField(
+                                  textController:
+                                  shortFormVM.short_firstNameController.value,
+                                  hintText: "First Name",
+                                  errorText: "enter your name",
+                                ),
+                              ),
+                              SizedBox(width: 6,),
+                              Text("*", style: TextStyle(fontSize: 20, color: Colors.red),)
+                            ],
                           ),
+
                           SizedBox(
                             height: 10,
                           ),
@@ -593,12 +618,22 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                             height: 15,
                           ),
 
-                          RegisterValidateTextField(
-                            textController:
-                                shortFormVM.short_phoneNumberController.value..text = registerVM.phoneNumber ?? "",
-                            hintText: "Phone Number",
-                            errorText: "enter your phone",
+                          Row(
+                            children: [
+                              Container(
+                                width: Get.width * 0.88,
+                                child: RegisterValidateTextField(
+                                  textController:
+                                  shortFormVM.short_phoneNumberController.value,
+                                  hintText: "Phone Number",
+                                  errorText: "enter your phone",
+                                ),
+                              ),
+                              SizedBox(width: 6,),
+                              Text("*", style: TextStyle(fontSize: 20, color: Colors.red),)
+                            ],
                           ),
+
                           SizedBox(
                             height: 15,
                           ),
@@ -1069,7 +1104,8 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                 height: 60,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(width: 2, color: Styles.primaryColor)),
+                    border:
+                    Border.all(width: 2, color: Styles.primaryColor)),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -1121,7 +1157,7 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                                         top: BorderSide(
                                             width: 0.7, color: Colors.grey)),
                                     color: selectPatientStatus ==
-                                            snapshot.data![index]?["Name"]
+                                        snapshot.data![index]?["Name"]
                                         ? Styles.primaryColor
                                         : Colors.white,
                                   ),
@@ -1129,15 +1165,12 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                                     padding: const EdgeInsets.all(12),
                                     child: InkWell(
                                         onTap: () {
-                                          selectPatientStatus =
-                                              snapshot.data![index]?["Name"];
+                                          selectPatientStatus = snapshot.data![index]?["Name"];
                                           isStutus = false;
                                           setState(() {
-                                            patientStatusId =
-                                                snapshot.data![index]?["Id"];
-                                            patientStatusName =
-                                                snapshot.data![index]?["Name"];
-                                            print("Id 12345 $patientStatusId");
+                                            patientStatusId = snapshot.data![index]?["Id"];
+                                            patientStatusName = snapshot.data![index]?["Name"];
+                                            print("Id $patientStatusId");
                                           });
                                         },
                                         child: Text(
@@ -1146,10 +1179,11 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
                                                 color: selectPatientStatus ==
-                                                        snapshot.data![index]
-                                                            ?["Name"]
+                                                    snapshot.data![index]
+                                                    ?["Name"]
                                                     ? Colors.white
-                                                    : Styles.drawerListColor))),
+                                                    : Styles
+                                                    .drawerListColor))),
                                   ),
                                 ),
                               );
@@ -1283,7 +1317,7 @@ class _RegistrShortFormState extends State<RegistrShortForm> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Date of Birth  ${dateOfBirth.toString()}',
+          Text('${dateOfBirth.toString()}',
               style: TextStyle(fontSize: 16, color: Styles.primaryColor)),
           InkWell(
               onTap: () async {

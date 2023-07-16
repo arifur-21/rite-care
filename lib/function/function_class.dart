@@ -1,7 +1,7 @@
 class DateTimeConverter {
   static dynamic dateTime;
   static dateOfTiemConterter(dynamic dob) {
-    dynamic dobs = "";
+    dynamic dobs = " ";
     dobs = dob;
     dynamic unixTimestamp = dobs;
     int timestampInMilliseconds = int.parse(

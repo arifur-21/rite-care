@@ -74,7 +74,7 @@ class SummeryViewModel extends GetxController {
 
       await _api
           .getSummeryListData(
-              startDate, endDate, categoryId.value, pageNumber.value,  0, labTestSuggNameId, invoiceNum)
+              startDate, endDate, categoryId.value, pageNumber.value, service.setviceId ?? 0, labTestSuggNameId, invoiceNum)
           .then((value) {
         setRxRequestStatus(Status.SUCCESS);
         setSummeryList(value);
@@ -99,7 +99,7 @@ class SummeryViewModel extends GetxController {
 
         await _api
             .getSummeryListData(
-                startDate, endDate, categoryId.value, pageNumber.value,  0, labTestSuggNameId, invoiceNum)
+                startDate, endDate, categoryId.value, pageNumber.value, service.setviceId ?? 0, labTestSuggNameId, invoiceNum)
             .then((value) {
           setRxRequestStatus(Status.SUCCESS);
           setSummeryList(value);

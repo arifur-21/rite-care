@@ -157,7 +157,7 @@ class _PatientSummeryScreenState extends State<PatientSummeryScreen> {
                                 dobs = summeryVM.items[index].invoiceDate;
                                 statusId = summeryVM.items[index].labStatusId;
 
-                            /*    List<int>? listOfStatusId = summeryVM
+                                List<int>? listOfStatusId = summeryVM
                                         .items[index].patientServices
                                         ?.map((e) =>
                                             int.parse(e.labStatusId.toString()))
@@ -172,7 +172,7 @@ class _PatientSummeryScreenState extends State<PatientSummeryScreen> {
                                             ? 2
                                             : listOfStatusId.contains(5)
                                                 ? 5
-                                                : 3;*/
+                                                : 3;
 
                                 // statusId = summeryVM
                                 //     .items?[index].labStatusId;
@@ -291,7 +291,7 @@ class _PatientSummeryScreenState extends State<PatientSummeryScreen> {
                                                     width: 10,
                                                   ),
                                                   Text(
-                                                    "${summeryVM.items[index].patient?.firstName} ${summeryVM.items[index].patient?.lastName}",
+                                                    "${summeryVM.items[index].patient?.firstName} ${summeryVM.items[index].patient?.lastName ?? ""}",
                                                     style:
                                                         TextStyle(fontSize: 12),
                                                   ),

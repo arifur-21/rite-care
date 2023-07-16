@@ -146,7 +146,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
                         itemCount: patinetListVM.items.length +1,
                         itemBuilder: (context, index){
 
-                          (patinetListVM.items[index].serviceTypeId == 0) ? serviceType ="Unifrom" : (patinetListVM.items[index].serviceTypeId == 1)? serviceType = "RE" : serviceType = "CNE";
+                         // (patinetListVM.items[index].serviceTypeId == 0) ? serviceType ="Unifrom" : (patinetListVM.items[index].serviceTypeId == 1)? serviceType = "RE" : serviceType = "CNE";
 
                           if (index == patinetListVM.items.length) {
                             return patinetListVM.hasReachedMax.value
@@ -185,12 +185,23 @@ class _PatientListScreenState extends State<PatientListScreen> {
                       mobile: patinetListVM.items![index].phoneNumber,
                       emergencyContact: patinetListVM.items![index].emergencyNumber,
                       emergencyRelation: patinetListVM.items![index].emergencyContactRelation,
+                      emergencyName: patinetListVM.items![index].emergencyContactName,
+                      nationalId: patinetListVM.items![index].nationalId.toString(),
                       relationship: patinetListVM.items![index].relationship?.name,
                       rank: patinetListVM.items![index].rank?.name,
                       unit: patinetListVM.items![index].unit?.name,
                       patienStatus: patinetListVM.items![index].patientStatus,
                       patientPrefix: patinetListVM.items![index].patientPrefix?.name,
-                      serviceType: serviceType
+                      serviceType: patinetListVM.items[index].serviceTypeId,
+                      isRetired: patinetListVM.items[index].isRetired,
+                      rankId: patinetListVM.items[index].rankId,
+                      unitId: patinetListVM.items[index].unitId,
+                      statusId: patinetListVM.items[index].patientStatusId,
+                      prefixId: patinetListVM.items[index].patientPrefixId,
+                      relationId : patinetListVM.items[index].relationshipId,
+                      genderId : patinetListVM.items[index].genderId,
+                      bloodGroupId : patinetListVM.items[index].bloodGroupId,
+
                     );
                     final box = Boxes.getData();
                     box.put("id", data);

@@ -126,7 +126,6 @@ class _SummeryListFilterWidgetState extends State<SummeryListFilterWidget> {
                                     labTestSuggName ='';
                                     loginPreference.removeServiceId();
 
-
                                     summeryVm.invoNumController.value.clear();
                                   });
                                 },
@@ -369,10 +368,11 @@ class _SummeryListFilterWidgetState extends State<SummeryListFilterWidget> {
                             width: Get.width * 0.5,
                             height: 40,
                             child: TextFormField(
+
                               onChanged: (value){
                                 summeryVm.getSummeryListData(invoiceNum: value);
                               },
-                              controller: summeryVm.invoNumController.value..text =  summeryVm.scannBarCode.value,
+                              controller: summeryVm.invoNumController.value,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 label: Text("Inv.NO"),

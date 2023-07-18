@@ -358,7 +358,7 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
                       SizedBox(
                         height: 15,
                       ),
-                      Row(
+                      /*Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
@@ -376,7 +376,7 @@ class _RegistrFullFormState extends State<RegistrFullForm> {
                       patientStatusWidget(),
                       SizedBox(
                         height: 15,
-                      ),
+                      ),*/
                       FutureBuilder(
                           future: registerVM.getRankData(),
                           builder: (contxt, data) {

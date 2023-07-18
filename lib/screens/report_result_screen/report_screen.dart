@@ -47,7 +47,8 @@ class _ReportScreenState extends State<ReportScreen> {
         .getTableRowDesignItem(
             widget.patientService.id,
             widget.patientService.itemId,
-            widget.patientService.groupItemIds ?? '')
+            widget.patientService.groupItemIds ?? '',
+            widget.patientService.patientServiceIds)
         .then((value) {
       designList = value.design ?? [];
 
@@ -60,7 +61,7 @@ class _ReportScreenState extends State<ReportScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("service id------- ${widget.patientService.id}");
+    print("service id------- ${widget.patientService.patientServiceIds}");
 
     return Scaffold(
       appBar: AppBar(
@@ -333,7 +334,7 @@ class _ReportScreenState extends State<ReportScreen> {
                               serialNo: e.serialNo,
                               machineId: e.machineId,
                               opinionText: e.opinionText,
-                              itemId: widget.patientService.itemId,
+                              itemId: e.itemId,
                               machineUnitName: e.machineUnitName,
                               createdDate: e.createdDate,
                               techonology: e.techonology,

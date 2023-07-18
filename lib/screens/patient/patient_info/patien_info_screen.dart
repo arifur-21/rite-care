@@ -169,11 +169,12 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
                           patientOfficalNo: data[index].officalNo,
                           index: index,
                           onTap: (){
+                            loginPreference.removeServiceId();
                             sampleVM.startDate =  DateFormat("yyyy-MM-dd").format(DateTime.now());
                             sampleVM.endDate =  DateFormat("yyyy-MM-dd").format(DateTime.now());
                            // sampleVM.getSampleListData();
                             sampleVM.statusName.value = "All";
-                            loginPreference.removeServiceId();
+
 
                             summeryVm.startDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
                             summeryVm.endDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
@@ -247,7 +248,7 @@ class _PatientInfoScreenState extends State<PatientInfoScreen> {
                         ProfileUserDataViewWidget(title: "Rank",information: "${data[index].rank}"),
                      //   ProfileUserDataViewWidget(title: "Branch/Trade",information: "${data[index].branch}"),
                         ProfileUserDataViewWidget(title: "Unit",information: "${data[index].unit}"),
-                        ProfileUserDataViewWidget(title: "Patient Status",information: "${data[index].patienStatus}"),
+                       // ProfileUserDataViewWidget(title: "Patient Status",information: "${data[index].patienStatus}"),
                         ProfileUserDataViewWidget(title: "Patient Prefix",information: "${data[index].patientPrefix}"),
 
 

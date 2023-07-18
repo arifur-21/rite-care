@@ -113,6 +113,7 @@ class _SummeryListFilterWidgetState extends State<SummeryListFilterWidget> {
                             child: InkWell(
                                 onTap: () {
                                   setState(() {
+                                    loginPreference.removeServiceId();
                                     summeryVm.startDate =
                                         DateFormat("yyyy-MM-dd")
                                             .format(DateTime.now());
@@ -124,7 +125,7 @@ class _SummeryListFilterWidgetState extends State<SummeryListFilterWidget> {
                                     summeryVm.statusName.value = "All";
                                     isCancel = false;
                                     labTestSuggName ='';
-                                    loginPreference.removeServiceId();
+
 
                                     summeryVm.invoNumController.value.clear();
                                   });

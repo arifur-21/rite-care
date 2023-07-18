@@ -73,12 +73,10 @@ class _SearchItemScreenState extends State<SearchItemScreen> {
                               shrinkWrap: true,
                               itemCount: searchVM.patientListItem.value.length,
                               itemBuilder: (context, index){
-
-
                                 return InkWell(
                                   onTap: (){
                                     ServiceIdModel serviceIdModel = ServiceIdModel(
-                                      setviceId: searchVM.patientListItem[index].id
+                                        setviceId: searchVM.patientListItem[index].id
                                     );
 
                                     loginPreference.saveServiceId(serviceIdModel);

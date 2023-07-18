@@ -51,10 +51,10 @@ class SummeryDetailsViewModel extends GetxController{
 
 
   /// get table row design item
-   Future<TableRowDesignModel> getTableRowDesignItem(serviceId, itemId, groupItemId) async {
+   Future<TableRowDesignModel> getTableRowDesignItem(serviceId, itemId, groupItemId, groupServiceIds) async {
      print('call table row design vm ');
     setRxRequestStatus(Status.LOADING);
-    await _api.getTableRowDesignItem(serviceId, itemId,groupItemId).then((value) {
+    await _api.getTableRowDesignItem(serviceId, itemId,groupItemId, groupServiceIds).then((value) {
       setRxRequestStatus(Status.SUCCESS);
       setTableRowDesign(value);
 

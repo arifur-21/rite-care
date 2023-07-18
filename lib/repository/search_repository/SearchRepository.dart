@@ -58,9 +58,9 @@ class SearchRepository {
 
   //get table row design item
   Future<TableRowDesignModel> getTableRowDesignItem(
-      serviceId, itemId, groupItemId) async {
+      serviceId, itemId, groupItemId, groupServiceIds) async {
     print("repo item Id ${itemId}");
-    print("repo service Id ${serviceId}");
+    print("repo group service id ${groupServiceIds}");
     dynamic response = await _apiServices.getApiData(
         '/Item/GetTableRowDesignByItemId?itemId=$itemId&machineId=&groupItemId=$groupItemId&serviceId=$serviceId');
     return TableRowDesignModel.fromJson(response);

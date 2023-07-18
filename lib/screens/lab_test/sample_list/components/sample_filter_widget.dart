@@ -112,12 +112,12 @@ class _SampleListFilterWidgetState extends State<SampleListFilterWidget> {
                               child: InkWell(
                                   onTap: (){
                                     setState(() {
+                                      loginPreference.removeServiceId();
                                         sampleVM.startDate =  DateFormat("yyyy-MM-dd").format(DateTime.now());
                                         sampleVM.endDate =  DateFormat("yyyy-MM-dd").format(DateTime.now());
                                         sampleVM.getSampleListData();
                                         sampleVM.statusName.value = "All";
                                         isCancel = false;
-                                        loginPreference.removeServiceId();
                                         sampleVM.invoNumController.value.clear();
                                         sampleVM.sampleIdController.value.clear();
 

@@ -1,0 +1,14 @@
+
+class RegisterDopDownList{
+ static List<String> serviceTypeList = ['Uniform', 'RE', 'CNE'];
+ static List<String> relationList = ['SELF', 'WIFE OF', 'HUSBAND OF', 'SON OF', 'DAUGHTER OF','FATHER OF', 'MOTHER OF', 'FATER IN-LAW-OF',
+    'MOTHER IN-LAW-OF', 'BADMAN  OF','MAID SERVENT OF'];
+
+ static List<String> patientPrefixList = ['OFFICERS-O','SOLDIERS-S','CIVILIAN ENTITLE-E','OFFICERFAMILY MEMBER-G','SOLDIERS FAMILY MEMBER-H',
+   'CIVILIAN FAMILY MEMBER-K', 'JCOS-J','VIP PATIENT-V', 'CIVILIAN (RELATION WITH ARMY OFFICER)-R',
+   'CIVILIAN (RELATION WITH SOLDIER)-R', 'ACAMEMIC-D', 'BANGABHABAN-P','CIVILIAN NON ENTITLE (CNE)-C', 'FOREIGN MISSION ARMY PERSON-F' ];
+
+ static List<String> selectRankList = ['VIP-V', 'VVIP-VV','FOREIGNMISSION-f'];
+
+}
+
